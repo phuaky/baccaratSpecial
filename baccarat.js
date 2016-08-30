@@ -103,31 +103,29 @@ function suitty (INPUT) {
       console.log('you have ' + getSuit(card1) + ' and ' + getSuit(card2))
     }
   } else if (INPUT.numberOfCardsOnHand === 3) {
-    if (getSuit(card1) === getSuit(card2)) {
-      if (getSuit(card2) === getSuit(card3)) {
-        console.log('you have 3 ' + getSuit(card3))
-      // return '300'
-      } else {
-        console.log('you have no same suits')
-      }
+    if (getSuit(card1) === getSuit(card2) && getSuit(card2) === getSuit(card3)) {
+      console.log('you have 3 ' + getSuit(card3))
+    // return '300'
+    } else {
+      console.log('you have no same suits')
     }
   }
 }
 
 // Check if player has PICTURE
-function picture (INPUT) {
-  var card1 = INPUT[Object.keys(INPUT)[2]] // Find card from player
-  var card2 = INPUT[Object.keys(INPUT)[3]] // Find card from player
-
-}
+// function picture (INPUT) {
+//   var card1 = INPUT[Object.keys(INPUT)[2]] // Find card from player
+//   var card2 = INPUT[Object.keys(INPUT)[3]] // Find card from player
+//
+// }
 
 // -----GGGGAME STARTTTTTTTT-----
 deal(banker); deal(player) // First deal give cards to person
 deal(banker); deal(player) // Second deal give cards to person
 console.log(banker)
 score(banker); suitty(banker)
-console.log(player)
-score(player); suitty(player)
+// console.log(player)
+// score(player); suitty(player)
 // console.log("----AFTER DEALING " + shuffledDeck.join(' '))
 
 // Deal to anybody
@@ -135,7 +133,7 @@ deal(banker)
 console.log(banker)
 score(banker); suitty(banker)
 
-// -----CHECK WINNER-----
+// -----CHECK WINNER----- only 2 cards.
 function compareValue () {
   if (score(banker) > score(player)) {
     console.log('BANKER WINS!')
