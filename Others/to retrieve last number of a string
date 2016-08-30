@@ -1,0 +1,7 @@
+function myFunction() {
+    var hello = '4323';
+    var result = hello.charAt(hello.length-1);
+    console.log(result);
+}
+
+myFunction()

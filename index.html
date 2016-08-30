@@ -1,13 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Baccarat Special</title>
-
-
-    </script>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <h1>BACCARAT SPECIAL</h1>
+    <h2>HUAT AHHH</h2>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4" id="b1">first card</div>
+        <div class="col-md-4" id="b2">second card</div>
+        <div class="col-md-4" id="b3">third card</div>
+      </div>
+
+      <div class ="xiaorow" id="nav-bar">
+        <form class="form-inline pull-left">
+          <div class="form-group">
+            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+            <div class="input-group">
+              <div class="input-group-addon">$</div>
+              <input type="text" class="form-control" placeholder="Amount">
+              <div class="input-group-addon">.00</div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">BET</button>
+        </form>
+
+        <button type="button" class="btn btn-primary" id="deal">DEAL CARDS</button>
+        <button type="button" class="btn btn-warning" id="draw">DRAW</button>
+        <button type="button" class="btn btn-danger pull-right">FIGHT!</button>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4" id="p1">first card</div>
+        <div class="col-md-4" id="p2">second card</div>
+        <div class="col-md-4" id="p3">third card</div>
+      </div>
+
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
     <script src="baccarat.js"></script>
   </body>
 </html>

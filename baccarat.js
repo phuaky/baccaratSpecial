@@ -12,6 +12,7 @@ var shuffledDeck = deck.sort(function (a, b) {
 })
 // console.log("------------STARTING DECK " + shuffledDeck.join(' '))
 
+// -----分牌！！！
 function deal (ghost) {
   var takeTopCard = shuffledDeck.shift()
   if (ghost.numberOfCardsOnHand === 0) {
@@ -56,18 +57,36 @@ function getSuit (zebra) {
     return 'Spades'
   }
 }
-// ------GET PICTURE CARDS ------
-// function getFace () {
-//   if (card % 13 == 11) {
-//     return 'Jack'
-//   } else if (card % 13 == 12) {
-//     return 'Queen'
-//   } else if (card % 13 == 0) {
-//     return 'King'
-//   } else {
-//     return "nil"
-//   }
-// }
+// ------GET PICTURE & VALUE CARDS ------
+function getFace (zabra) {
+  if (zabra % 13 == 11) {
+    return 'Jack'
+  } else if (zabra % 13 == 12) {
+    return 'Queen'
+  } else if (zabra % 13 == 0) {
+    return 'King'
+  } else if (zabra % 13 == 1) {
+    return 'Ace'
+  } else {
+    return zabra % 13
+  }
+}
+// DEAL TO HTML
+function dth (input) {
+  var card1 = input[Object.keys(input)[2]]
+  var card2 = input[Object.keys(input)[3]]
+  var card3 = input[Object.keys(input)[4]]
+  if (input.numberOfCardsOnHand === 1) {
+    console.log(getFace(card1));
+    return getFace(card1)
+  } else if (input.numberOfCardsOnHand === 2) {
+    console.log(getFace(card2));
+    return getFace(card2)
+  } else if (input.numberOfCardsOnHand === 3) {
+    console.log(getFace(card3));
+    return getFace(card3)
+  }
+}
 
 // Sum of 2 cards or 3 cards
 function score (input) {
@@ -120,18 +139,30 @@ function suitty (INPUT) {
 // }
 
 // -----GGGGAME STARTTTTTTTT-----
-deal(banker); deal(player) // First deal give cards to person
-deal(banker); deal(player) // Second deal give cards to person
-console.log(banker)
-score(banker); suitty(banker)
-// console.log(player)
-// score(player); suitty(player)
-// console.log("----AFTER DEALING " + shuffledDeck.join(' '))
+document.getElementById("deal").addEventListener("click", function () {
+  deal(player); dth(player)
+  deal(banker); dth(banker)
+  deal(player); dth(player)
+  deal(banker); dth(banker)
+  console.log(player)
+  score(player); suitty(player)
+  console.log(banker)
+  score(banker); suitty(banker)
+  // console.log("----AFTER DEALING " + shuffledDeck.join(' '))
+});
 
-// Deal to anybody
-deal(banker)
-console.log(banker)
-score(banker); suitty(banker)
+//Player Draw
+document.getElementById("draw").addEventListener("click", function () {
+  deal(player)
+  console.log(player);
+  score(player); suitty(player)
+});
+
+document.getElementById("draw").addEventListener("click", function () {
+  deal(player)
+  console.log(player);
+  score(player); suitty(player)
+});
 
 // -----CHECK WINNER----- only 2 cards.
 function compareValue () {
@@ -147,3 +178,9 @@ function compareValue () {
   }
 }
 // compareValue()
+function natural () {
+  if (score(banker) || score(player) > 7) {
+    console.log("");
+  }
+
+}

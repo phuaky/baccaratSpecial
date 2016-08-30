@@ -1,0 +1,26 @@
+body {
+  background-color: #FFD700;
+  text-align: center;
+}
+
+.container {
+  border: 10px solid red;
+  height: 500px;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.row {
+  border: 10px solid pink;
+  height: 220px;
+}
+.xiaorow {
+  border: 2px solid green;
+  height: 40px;
+}
+
+.col-md-4 {
+  border: 2px solid brown;
+  height: 200px;
+}
