@@ -23,4 +23,5 @@ body {
 .col-md-4 {
   border: 2px solid brown;
   height: 200px;
+  font-size: 50px
 }

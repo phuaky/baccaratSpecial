@@ -59,13 +59,13 @@ function getSuit (zebra) {
 }
 // ------GET PICTURE & VALUE CARDS ------
 function getFace (zabra) {
-  if (zabra % 13 == 11) {
+  if (zabra % 13 === 11) {
     return 'Jack'
-  } else if (zabra % 13 == 12) {
+  } else if (zabra % 13 === 12) {
     return 'Queen'
-  } else if (zabra % 13 == 0) {
+  } else if (zabra % 13 === 0) {
     return 'King'
-  } else if (zabra % 13 == 1) {
+  } else if (zabra % 13 === 1) {
     return 'Ace'
   } else {
     return zabra % 13
@@ -77,13 +77,13 @@ function dth (input) {
   var card2 = input[Object.keys(input)[3]]
   var card3 = input[Object.keys(input)[4]]
   if (input.numberOfCardsOnHand === 1) {
-    console.log(getFace(card1));
+    console.log(getFace(card1))
     return getFace(card1)
   } else if (input.numberOfCardsOnHand === 2) {
-    console.log(getFace(card2));
+    console.log(getFace(card2))
     return getFace(card2)
   } else if (input.numberOfCardsOnHand === 3) {
-    console.log(getFace(card3));
+    console.log(getFace(card3))
     return getFace(card3)
   }
 }
@@ -139,30 +139,45 @@ function suitty (INPUT) {
 // }
 
 // -----GGGGAME STARTTTTTTTT-----
-document.getElementById("deal").addEventListener("click", function () {
-  deal(player); dth(player)
-  deal(banker); dth(banker)
-  deal(player); dth(player)
-  deal(banker); dth(banker)
+document.getElementById('deal').addEventListener('click', function () {
+  deal(player)
+  var div1 = document.getElementById('p1')
+  var cardz = dth(player)
+  div1.textContent = cardz
+  deal(banker)
+  var div2 = document.getElementById('b1')
+  var cardyz = dth(banker)
+  div2.textContent = cardyz
+  deal(player)
+  var div3 = document.getElementById('p2')
+  var cardxz = dth(player)
+  div3.textContent = cardxz
+  deal(banker)
+  var div4 = document.getElementById('b2')
+  var cardcz = dth(banker)
+  div4.textContent = cardcz
   console.log(player)
   score(player); suitty(player)
   console.log(banker)
   score(banker); suitty(banker)
-  // console.log("----AFTER DEALING " + shuffledDeck.join(' '))
-});
+// console.log("----AFTER DEALING " + shuffledDeck.join(' '))
+})
 
-//Player Draw
-document.getElementById("draw").addEventListener("click", function () {
+// Player Draw
+document.getElementById('draw').addEventListener('click', function () {
   deal(player)
-  console.log(player);
+  var div5 = document.getElementById('p3')
+  var cardvz = dth(player)
+  div5.textContent = cardvz
+  console.log(player)
   score(player); suitty(player)
-});
+})
 
-document.getElementById("draw").addEventListener("click", function () {
+document.getElementById('draw').addEventListener('click', function () {
   deal(player)
-  console.log(player);
+  console.log(player)
   score(player); suitty(player)
-});
+})
 
 // -----CHECK WINNER----- only 2 cards.
 function compareValue () {
@@ -180,7 +195,6 @@ function compareValue () {
 // compareValue()
 function natural () {
   if (score(banker) || score(player) > 7) {
-    console.log("");
+    console.log('')
   }
-
 }
