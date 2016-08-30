@@ -1,5 +1,5 @@
-var deck = []
-for (var i = 1; i < 53; i++) {
+var deck = [] //  Start with blank deck
+for (var i = 1; i < 53; i++) { // Cards into deck
   deck.push(i)
 }
 //  Shuffle cards and store in array
@@ -10,9 +10,7 @@ var shuffledDeck = deck.sort(function (a, b) {
     return 1
   }
 })
-console.log("------------STARTING DECK " + shuffledDeck.join(' '))
-
-var player = {}
+// console.log("------------STARTING DECK " + shuffledDeck.join(' '))
 
 function deal (ghost) {
   var takeTopCard = shuffledDeck.shift()
@@ -30,11 +28,13 @@ function deal (ghost) {
 //  BANKER VS PLAYER
 var player = {
   type: 'player',
-  numberOfCardsOnHand: 0
+  numberOfCardsOnHand: 0,
+  sum: 0
 }
 var banker = {
   type: 'banker',
-  numberOfCardsOnHand: 0
+  numberOfCardsOnHand: 0,
+  sum: 0
 }
 
 
@@ -60,45 +60,70 @@ function getSuit (zebra) {
     return 'Spades'
   }
 }
-// // ------GET PICTURE CARDS ------
-// // function getFace () {
-// //   if (card % 13 == 11) {
-// //     return 'Jack'
-// //   } else if (card % 13 == 12) {
-// //     return 'Queen'
-// //   } else if (card % 13 == 0) {
-// //     return 'King'
-// //   } else {
-// //     return "nil"
-// //   }
-// // }
-//
+// ------GET PICTURE CARDS ------
+function getFace () {
+  if (card % 13 == 11) {
+    return 'Jack'
+  } else if (card % 13 == 12) {
+    return 'Queen'
+  } else if (card % 13 == 0) {
+    return 'King'
+  } else {
+    return "nil"
+  }
+}
+
 // Sum of 2 cards
 function score (INPUT) {
-  var INPUT_CARD1 = INPUT[Object.keys(INPUT)[2]]
-  var INPUT_CARD2 = INPUT[Object.keys(INPUT)[3]]
-  var asd = getValue(INPUT_CARD1) + getValue(INPUT_CARD2)
+  var card1 = INPUT[Object.keys(INPUT)[2]] // Find card from player
+  var card2 = INPUT[Object.keys(INPUT)[3]] // Find card from player
+  var asd = getValue(card1) + getValue(card2)
   var n = asd.toString()
   var singleValue = n.charAt(n.length - 1)
   console.log('Your total hand value is ' + singleValue + ' and ')
   return singleValue
 }
-// // Suits player is holding
-function suitty () {
-  if (getSuit(card0) === getSuit(card1)) {
-    console.log('you have ' + getSuit(card0) + ' pair')
+// Suits player is holding
+function suitty (INPUT) {
+  var card1 = INPUT[Object.keys(INPUT)[2]] // Find card from player
+  var card2 = INPUT[Object.keys(INPUT)[3]]// Find card from player
+  if (getSuit(card1) === getSuit(card2)) { // Identify suit
+    console.log('you have ' + getSuit(card1) + ' pair')
   } else {
-    console.log('you have ' + getSuit(card0) + ' and ' + getSuit(card1))
+    console.log('you have ' + getSuit(card1) + ' and ' + getSuit(card2))
   }
 }
 
-// suitty()
-deal(banker)
-deal(player)
-deal(banker)
-deal(player)
+// Check if player has PICTURE
+function picture (INPUT) {
+  var card1 = INPUT[Object.keys(INPUT)[2]] // Find card from player
+  var card2 = INPUT[Object.keys(INPUT)[3]] // Find card from player
+
+}
+
+// -----GGGGAME STARTTTTTTTT-----
+deal(banker); deal(player); //First deal
+deal(banker); deal(player); //Second deal
 console.log(banker);
-score(banker)
+score(banker); suitty(banker);
 console.log(player)
-score(player)
-console.log("----AFTER DEALING " + shuffledDeck.join(' '))
+score(player); suitty(player);
+// console.log("----AFTER DEALING " + shuffledDeck.join(' '))
+
+
+
+// -----CHECK WINNER-----
+function compareValue () {
+  if (score(banker) > score(player)) {
+    console.log("BANKER WINS!");
+    return "BANKER WINS!"
+  } else if (score(player) > score(banker)) {
+    console.log("PLAYER WINS!");
+    return "PLAYER WINS!"
+  } else {
+    console.log("It's a DRAW");
+    return "It's a DRAW"
+  }
+}
+
+compareValue()
