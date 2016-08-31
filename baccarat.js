@@ -75,45 +75,48 @@ function dth (input) {
   for (var i = 0; i < input.cards.length; i++) {
     hand_array.push(getCard(input.cards[i]))
   }
-    return hand_array
+  return hand_array
 }
-
-
-// showCardInHTML(player)
-// console.log(player.cards)
-//
-// dth(player)
-// console.log(dth(player))
-//
-// deal(player)
-// showCardInHTML(player)
-// console.log(player.cards)
-//
-// dth(player)
-// console.log(dth(player))
-
-
 
 // Sum of 2 cards or 3 cards
 function score (input) {
-  var card1 = input[Object.keys(input)[2]] // Find card from player
-  var card2 = input[Object.keys(input)[3]] // Find card from player
-  var card3 = input[Object.keys(input)[4]] // Find card from player
-  var asd = getValue(card1) + getValue(card2)
-  var qwe = getValue(card1) + getValue(card2) + getValue(card3)
-  if (input.numberOfCardsOnHand === 2) {
-    var n = asd.toString()
+  var card1 = input.cards[0]
+  var card2 = input.cards[1]
+  var card3 = input.cards[2]
+  // var cardy = 0
+  // for (var i = 0; i < input.cards.length; i++) {
+  //   cardy = input.cards[i]
+  //   console.log(cardy);
+  var twoCardsValue = getValue(card1) + getValue(card2)
+  var threeCardsValue = getValue(card1) + getValue(card2) + getValue(card3)
+  if (input.cards.length === 2) {
+    var n = twoCardsValue.toString()
     var singleValue = n.charAt(n.length - 1)
-    console.log('Your hand value is ' + singleValue)
-    // input['sum'] = singleValue // NOT WORKING!!!
     return singleValue
-  } else if (input.numberOfCardsOnHand === 3) {
-    var m = qwe.toString()
-    var singleValue1 = m.charAt(m.length - 1)
-    console.log('Your hand value is ' + singleValue1)
-    // input['sum'] = singleValue // NOT WORKING!!!
-    return singleValue1
+  } else if (input.cards.length === 3) {
+    var m = threeCardsValue.toString()
+    var singleValue = m.charAt(m.length - 1)
+    return singleValue
   }
+  // var card1 = input[Object.keys(input)[2]] // Find card from player
+  // var card2 = input[Object.keys(input)[3]] // Find card from player
+  // var card3 = input[Object.keys(input)[4]] // Find card from player
+  // var asd = getValue(card1) + getValue(card2)
+  // var qwe = getValue(card1) + getValue(card2) + getValue(card3)
+  // if (input.numberOfCardsOnHand === 2) {
+  //   var n = asd.toString()
+  //   var singleValue = n.charAt(n.length - 1)
+  //   console.log('Your hand value is ' + singleValue)
+  //   // input['sum'] = singleValue // NOT WORKING!!!
+  //   return singleValue
+  // } else if (input.numberOfCardsOnHand === 3) {
+  //   var m = qwe.toString()
+  //   var singleValue1 = m.charAt(m.length - 1)
+  //   console.log('Your hand value is ' + singleValue1)
+  //   // input['sum'] = singleValue // NOT WORKING!!!
+  //   return singleValue1
+  // }
+
 }
 // Suits player is holding, can check 3 cards
 function suitty (INPUT) {
@@ -137,8 +140,6 @@ function suitty (INPUT) {
   }
 }
 
-
-
 var dealAlr = 0
 // -----GGGGAME STARTTTTTTTT-----
 document.getElementById('deal').addEventListener('click', function () {
@@ -149,35 +150,34 @@ document.getElementById('deal').addEventListener('click', function () {
     showCardInHTML(banker)
     deal(player)
     showCardInHTML(player)
-    deal(player)
-    showCardInHTML(player)
+    deal(banker)
+    showCardInHTML(banker)
 
+    console.log(player.cards)
+    console.log(banker.cards)
 
     dealAlr++
   // console.log("----AFTER DEALING " + shuffledDeck.join(' '))
-// } else if (dealAlr === 1) {
-//   deal(player)
-//   showCardInHTML(player)
-//   deal(banker)
-//   showCardInHTML(banker)
- }
+  }
 })
 
 // Player Draw
 document.getElementById('draw').addEventListener('click', function () {
   deal(player)
-  var div5 = document.getElementById('p3')
+  var div5 = document.getElementById('player3')
   var cardvz = dth(player)
-  div5.textContent = cardvz
-  console.log(player)
-  score(player); suitty(player)
+  div5.textContent = cardvz[2]
 })
 
 document.getElementById('fight').addEventListener('click', function () {
+  score(banker)
+  score(player)
   compareValue()
 })
 
 // -----CHECK WINNER----- only 2 cards.
+var display = $('h3')
+console.log(display);
 function compareValue () {
   if (score(banker) > score(player)) {
     console.log('BANKER WINS!')
@@ -197,13 +197,12 @@ function natural () {
 }
 
 // DOM MANIPULATION HERE
-
-function showCardInHTML(person) {
+function showCardInHTML (person) {
   for (var i = 0; i < person.cards.length; i++) {
     var id = person.type + (i + 1)
     var div = document.getElementById(id)
     var cardz = dth(person)
-    div.textContent = cardz
-    // $('#player1').html(cardz[i])
+    div.textContent = cardz[i];
+  // $('#player1').html(cardz[i])
   }
 }
