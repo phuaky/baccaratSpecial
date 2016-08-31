@@ -74,6 +74,10 @@ function getPic (zabra) {
   } else
     return -1
 }
+// -------CHECK FOR STRAIGHTS -------
+// function getStraights (zeebra) {
+//   var zee = zeebra % 13
+// }
 
 // ----------COMBINE FACE AND SUIT-----------
 function getCard (card) {
@@ -136,29 +140,25 @@ function suitty (input) {
 
 var dealAlr = 0
 // -----GGGGAME STARTTTTTTTT-----
-// document.getElementById('deal').addEventListener('click', function () {
-//   if (dealAlr === 0) {
-deal(player)
-deal(banker)
+document.getElementById('deal').addEventListener('click', function () {
+  if (dealAlr === 0) {
+    deal(player)
+    deal(banker)
 
-deal(player)
-deal(banker)
+    deal(player)
+    deal(banker)
 
-deal(player)
-deal(banker)
+    showCardInHTML(player)
+    showCardInHTML(banker)
 
-showCardInHTML(player)
-showCardInHTML(banker)
+    natural() // check for natural
 
-// natural() // check for natural
-compareValue()
-// console.log("player's score " + score(player))
-// console.log("banker's scrore " + score(banker))
+    console.log("player's score " + score(player))
+    console.log("banker's scrore " + score(banker))
 
-// dealAlr++
-// console.log("----AFTER DEALING " + shuffledDeck.join(' '))
-// }
-// })
+    dealAlr++
+  }
+})
 
 // Player Draw
 var dealCounter = 0
@@ -178,95 +178,92 @@ document.getElementById('draw').addEventListener('click', function () {
   }
 })
 
+var display = $('#display')
 document.getElementById('fight').addEventListener('click', function () {
-  score(banker)
-  score(player)
-  suitty(banker)
-  suitty(player)
-  compareValue()
+display.text(compareValue())
+// score(banker)
+// score(player)
+// suitty(banker)
+// suitty(player)
 })
 
 // -----CHECK WINNER----- only 2 cards.
-var display = $('h3')
-// console.log(display)
+
 
 function compareValue () {
-  // if (pair(player) && pair(banker)) { //CHECK FOR PAIR
-  //   console.log('BOTH HAVE PAIRS')
-  // } else if (pair(player)) {
-  //   console.log('PLAYER HAS PAIR')
-  // } else if (pair(banker)) {
-  //   console.log('BANKER HAS PAIR')
-  // }
-  // if (suitSuit(player) && suitSuit(banker)) { //CHECK FOR SUITED
-  //   console.log('BOTH HAVE SUITED')
-  // } else if (suitSuit(player)) {
-  //   console.log('PLAYER HAS SUITED')
-  // } else if (suitSuit(banker)) {
-  //   console.log('BANKER HAS SUITED')
-  // }
-  // if (suitCube(player) && suitCube(banker)) { //CHECK FOR 3 SUITED
-  //   console.log('BOTH HAVE 3 SUITED')
-  // } else if (suitCube(player)) {
-  //   console.log('PLAYER HAS 3 SUITED')
-  // } else if (suitCube(banker)) {
-  //   console.log('BANKER HAS 3 SUITED')
-  // }
-  if (picCube(player) && picCube(banker)) { // CHECK FOR 3 PICTURES
-    console.log('BOTH HAVE 3 PICTURES')
-  } else if (picCube(player)) {
-    console.log('PLAYER HAS 3 PICTURES')
-  } else if (picCube(banker)) {
-    console.log('BANKER HAS 3 PICTURES')
+  if (pair(player) && pair(banker)) { // CHECK FOR PAIR
+    return 'BOTH HAVE PAIRS'
+  } else if (pair(player)) {
+    return 'PLAYER HAS PAIR'
+  } else if (pair(banker)) {
+    return 'BANKER HAS PAIR'
   }
-// if (trips(player) && trips(banker)) { //CHECK FOR TRIPLE
-//   console.log('BOTH HAVE TRIPLE')
-// } else if (trips(player)) {
-//   console.log('PLAYER HAS TRIPLE')
-// } else if (trips(banker)) {
-//   console.log('BANKER HAS TRIPLE')
-// }
+  if (suitSuit(player) && suitSuit(banker)) { // CHECK FOR SUITED
+    return 'BOTH HAVE SUITED'
+  } else if (suitSuit(player)) {
+    return 'PLAYER HAS SUITED'
+  } else if (suitSuit(banker)) {
+    return 'BANKER HAS SUITED'
+  }
+  if (suitCube(player) && suitCube(banker)) { // CHECK FOR 3 SUITED
+    return 'BOTH HAVE 3 SUITED'
+  } else if (suitCube(player)) {
+    return 'PLAYER HAS 3 SUITED'
+  } else if (suitCube(banker)) {
+    return 'BANKER HAS 3 SUITED'
+  }
+  if (picCube(player) && picCube(banker)) { // CHECK FOR 3 PICTURES
+    return 'BOTH HAVE 3 PICTURES'
+  } else if (picCube(player)) {
+    return 'PLAYER HAS 3 PICTURES'
+  } else if (picCube(banker)) {
+    return 'BANKER HAS 3 PICTURES'
+  }
+  if (trips(player) && trips(banker)) { // CHECK FOR TRIPLE
+    return 'BOTH HAVE TRIPLE'
+  } else if (trips(player)) {
+    return 'PLAYER HAS TRIPLE'
+  } else if (trips(banker)) {
+    return 'BANKER HAS TRIPLE'
+  }
+  if (score(banker) > score(player)) {
+    return 'BANKER WINS!'
+  } else if (score(player) > score(banker)) {
+    return 'PLAYER WINS!'
+  } else if (score(banker) === score(player)) {
+    return "It's a DRAW"
+  } else {
+    console.log('BuGGGGGGGG')
+    console.log('banker score is ' + score(banker) + 'player score is ' + score(player))
+  }
 }
-// if (score(banker) > score(player)) {
-//   console.log('BANKER WINS!')
-//   return 'BANKER WINS!'
-// } else if (score(player) > score(banker)) {
-//   console.log('PLAYER WINS!')
-//   return 'PLAYER WINS!'
-// } else if (score(banker) === score(player)) {
-//   console.log("It's a DRAW")
-//   return "It's a DRAW"
-// } else {
-//   console.log('BuGGGGGGGG')
-//   console.log('banker score is ' + score(banker) + 'player score is ' + score(player))
-// }
-// }
 
+// --- ALL THE FUNCTIONSSSSS -----
 function natural () {
   if (score(banker) > 7 || score(player) > 7) {
     console.log('GAME-END, SOMEBODY HAS NATURAL!')
     if (suitty(banker) === 200 || suitty(player) === 200) {
       console.log('WITH DOUBLE!!!!!!')
-      return 'WITH DOUBLE!!!!!!'
+      return 'WITH DOUBLE!!!!!!' // function to end game
     }
   }
 }
 
-// function pair (person) { //PAIR FUNCTION
-//   return getFace(person.cards[0]) === getFace(person.cards[1])
-// }
-// function suitSuit (person) { //SUITS FUNCTION
-//   return getSuit(person.cards[0]) === getSuit(person.cards[1])
-// }
-// function suitCube (person) {
-//   return (getSuit(person.cards[0]) === getSuit(person.cards[1]) && getSuit(person.cards[1]) === getSuit(person.cards[2]))
-// }
+function pair (person) { // PAIR FUNCTION
+  return getFace(person.cards[0]) === getFace(person.cards[1])
+}
+function suitSuit (person) { // SUITS FUNCTION
+  return getSuit(person.cards[0]) === getSuit(person.cards[1])
+}
+function suitCube (person) {
+  return (getSuit(person.cards[0]) === getSuit(person.cards[1]) && getSuit(person.cards[1]) === getSuit(person.cards[2]))
+}
 function picCube (person) {
   return (getPic(person.cards[0]) > 0 && getPic(person.cards[1]) > 0 && getPic(person.cards[2]) > 0)
 }
-// function trips (person) {
-//   return (getFace(person.cards[0]) === getFace(person.cards[1]) && getFace(person.cards[1]) === getFace(person.cards[2]))
-// }
+function trips (person) {
+  return (getFace(person.cards[0]) === getFace(person.cards[1]) && getFace(person.cards[1]) === getFace(person.cards[2]))
+}
 
 // DOM MANIPULATION HERE
 function showCardInHTML (person) {
@@ -275,6 +272,5 @@ function showCardInHTML (person) {
     var div = document.getElementById(id)
     var cardz = dth(person)
     div.textContent = cardz[i]
-  // $('#player1').html(cardz[i])
   }
 }
