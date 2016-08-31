@@ -12,30 +12,21 @@ var shuffledDeck = deck.sort(function (a, b) {
 })
 // console.log("------------STARTING DECK " + shuffledDeck.join(' '))
 
-// -----分牌！！！
+// -----DEAL CARDS-----分牌！！！
 function deal (ghost) {
   var takeTopCard = shuffledDeck.shift()
-  if (ghost.numberOfCardsOnHand === 0) {
-    ghost['card1'] = takeTopCard
-    ghost.numberOfCardsOnHand++
-  } else if (ghost.numberOfCardsOnHand === 1) {
-    ghost['card2'] = takeTopCard
-    ghost.numberOfCardsOnHand++
-  } else if (ghost.numberOfCardsOnHand === 2) {
-    ghost['card3'] = takeTopCard
-    ghost.numberOfCardsOnHand++
-  }
+  ghost.cards.push(takeTopCard)
 }
-
 //  BANKER VS PLAYER
 var player = {
   type: 'player',
-  numberOfCardsOnHand: 0
+  cards: []
 }
 var banker = {
   type: 'banker',
-  numberOfCardsOnHand: 0
+  cards: []
 }
+
 // // ------Assign value & suit to index in array------
 function getValue (zerba) {
   if (zerba % 13 >= 10) {
@@ -71,29 +62,37 @@ function getFace (zabra) {
     return zabra % 13
   }
 }
-
-function getCard(card) {
+// ----------COMBINE FACE AND SUIT-----------
+function getCard (card) {
   var face = getFace(card)
   var suit = getSuit(card)
-  return face + " of " + suit;
+  return face + ' ' + suit
 }
 
 // DEAL TO HTML
 function dth (input) {
-  var card1 = input[Object.keys(input)[2]]
-  var card2 = input[Object.keys(input)[3]]
-  var card3 = input[Object.keys(input)[4]]
-  if (input.numberOfCardsOnHand === 1) {
-    // console.log(getFace(card1))
-    return getCard(card1)
-  } else if (input.numberOfCardsOnHand === 2) {
-    // console.log(getFace(card2))
-    return getCard(card2)
-  } else if (input.numberOfCardsOnHand === 3) {
-    // console.log(getFace(card3))
-    return getCard(card3)
+  var hand_array = []
+  for (var i = 0; i < input.cards.length; i++) {
+    hand_array.push(getCard(input.cards[i]))
   }
+    return hand_array
 }
+
+
+// showCardInHTML(player)
+// console.log(player.cards)
+//
+// dth(player)
+// console.log(dth(player))
+//
+// deal(player)
+// showCardInHTML(player)
+// console.log(player.cards)
+//
+// dth(player)
+// console.log(dth(player))
+
+
 
 // Sum of 2 cards or 3 cards
 function score (input) {
@@ -111,7 +110,7 @@ function score (input) {
   } else if (input.numberOfCardsOnHand === 3) {
     var m = qwe.toString()
     var singleValue1 = m.charAt(m.length - 1)
-    console.log('Your hand value is ' + singleValue1 )
+    console.log('Your hand value is ' + singleValue1)
     // input['sum'] = singleValue // NOT WORKING!!!
     return singleValue1
   }
@@ -138,33 +137,30 @@ function suitty (INPUT) {
   }
 }
 
+
+
 var dealAlr = 0
 // -----GGGGAME STARTTTTTTTT-----
 document.getElementById('deal').addEventListener('click', function () {
   if (dealAlr === 0) {
     deal(player)
-    var div1 = document.getElementById('p1')
-    var cardz = dth(player)
-    div1.textContent = cardz
+    showCardInHTML(player)
     deal(banker)
-    var div2 = document.getElementById('b1')
-    var cardyz = dth(banker)
-    div2.textContent = cardyz
+    showCardInHTML(banker)
     deal(player)
-    var div3 = document.getElementById('p2')
-    var cardxz = dth(player)
-    div3.textContent = cardxz
-    deal(banker)
-    var div4 = document.getElementById('b2')
-    var cardcz = dth(banker)
-    div4.textContent = cardcz
-    console.log(player)
-    score(player); suitty(player)
-    console.log(banker)
-    score(banker); suitty(banker)
+    showCardInHTML(player)
+    deal(player)
+    showCardInHTML(player)
+
+
     dealAlr++
   // console.log("----AFTER DEALING " + shuffledDeck.join(' '))
-  }
+// } else if (dealAlr === 1) {
+//   deal(player)
+//   showCardInHTML(player)
+//   deal(banker)
+//   showCardInHTML(banker)
+ }
 })
 
 // Player Draw
@@ -197,5 +193,17 @@ function compareValue () {
 function natural () {
   if (score(banker) || score(player) > 7) {
     console.log('')
+  }
+}
+
+// DOM MANIPULATION HERE
+
+function showCardInHTML(person) {
+  for (var i = 0; i < person.cards.length; i++) {
+    var id = person.type + (i + 1)
+    var div = document.getElementById(id)
+    var cardz = dth(person)
+    div.textContent = cardz
+    // $('#player1').html(cardz[i])
   }
 }
