@@ -71,20 +71,27 @@ function getFace (zabra) {
     return zabra % 13
   }
 }
+
+function getCard(card) {
+  var face = getFace(card)
+  var suit = getSuit(card)
+  return face + " of " + suit;
+}
+
 // DEAL TO HTML
 function dth (input) {
   var card1 = input[Object.keys(input)[2]]
   var card2 = input[Object.keys(input)[3]]
   var card3 = input[Object.keys(input)[4]]
   if (input.numberOfCardsOnHand === 1) {
-    console.log(getFace(card1))
-    return getFace(card1)
+    // console.log(getFace(card1))
+    return getCard(card1)
   } else if (input.numberOfCardsOnHand === 2) {
-    console.log(getFace(card2))
-    return getFace(card2)
+    // console.log(getFace(card2))
+    return getCard(card2)
   } else if (input.numberOfCardsOnHand === 3) {
-    console.log(getFace(card3))
-    return getFace(card3)
+    // console.log(getFace(card3))
+    return getCard(card3)
   }
 }
 
@@ -98,13 +105,13 @@ function score (input) {
   if (input.numberOfCardsOnHand === 2) {
     var n = asd.toString()
     var singleValue = n.charAt(n.length - 1)
-    console.log('Your total hand value is ' + singleValue + ' and ')
+    console.log('Your hand value is ' + singleValue)
     // input['sum'] = singleValue // NOT WORKING!!!
     return singleValue
   } else if (input.numberOfCardsOnHand === 3) {
     var m = qwe.toString()
     var singleValue1 = m.charAt(m.length - 1)
-    console.log('Your total hand value is ' + singleValue1 + ' and ')
+    console.log('Your hand value is ' + singleValue1 )
     // input['sum'] = singleValue // NOT WORKING!!!
     return singleValue1
   }
@@ -131,36 +138,33 @@ function suitty (INPUT) {
   }
 }
 
-// Check if player has PICTURE
-// function picture (INPUT) {
-//   var card1 = INPUT[Object.keys(INPUT)[2]] // Find card from player
-//   var card2 = INPUT[Object.keys(INPUT)[3]] // Find card from player
-//
-// }
-
+var dealAlr = 0
 // -----GGGGAME STARTTTTTTTT-----
 document.getElementById('deal').addEventListener('click', function () {
-  deal(player)
-  var div1 = document.getElementById('p1')
-  var cardz = dth(player)
-  div1.textContent = cardz
-  deal(banker)
-  var div2 = document.getElementById('b1')
-  var cardyz = dth(banker)
-  div2.textContent = cardyz
-  deal(player)
-  var div3 = document.getElementById('p2')
-  var cardxz = dth(player)
-  div3.textContent = cardxz
-  deal(banker)
-  var div4 = document.getElementById('b2')
-  var cardcz = dth(banker)
-  div4.textContent = cardcz
-  console.log(player)
-  score(player); suitty(player)
-  console.log(banker)
-  score(banker); suitty(banker)
-// console.log("----AFTER DEALING " + shuffledDeck.join(' '))
+  if (dealAlr === 0) {
+    deal(player)
+    var div1 = document.getElementById('p1')
+    var cardz = dth(player)
+    div1.textContent = cardz
+    deal(banker)
+    var div2 = document.getElementById('b1')
+    var cardyz = dth(banker)
+    div2.textContent = cardyz
+    deal(player)
+    var div3 = document.getElementById('p2')
+    var cardxz = dth(player)
+    div3.textContent = cardxz
+    deal(banker)
+    var div4 = document.getElementById('b2')
+    var cardcz = dth(banker)
+    div4.textContent = cardcz
+    console.log(player)
+    score(player); suitty(player)
+    console.log(banker)
+    score(banker); suitty(banker)
+    dealAlr++
+  // console.log("----AFTER DEALING " + shuffledDeck.join(' '))
+  }
 })
 
 // Player Draw
@@ -173,10 +177,8 @@ document.getElementById('draw').addEventListener('click', function () {
   score(player); suitty(player)
 })
 
-document.getElementById('draw').addEventListener('click', function () {
-  deal(player)
-  console.log(player)
-  score(player); suitty(player)
+document.getElementById('fight').addEventListener('click', function () {
+  compareValue()
 })
 
 // -----CHECK WINNER----- only 2 cards.
@@ -192,7 +194,6 @@ function compareValue () {
     return "It's a DRAW"
   }
 }
-// compareValue()
 function natural () {
   if (score(banker) || score(player) > 7) {
     console.log('')

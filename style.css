@@ -1,27 +1,38 @@
 body {
   background-color: #FFD700;
   text-align: center;
+  color: #4D40FF
 }
 
 .container {
   border: 10px solid red;
   height: 500px;
-  width: 800px;
+  width: 1200px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.littleRow {
+  border: 10px solid white;
+  height: 65px;
 }
 
 .row {
   border: 10px solid pink;
   height: 220px;
 }
+
 .xiaorow {
   border: 2px solid green;
   height: 40px;
 }
 
-.col-md-4 {
+.col-md-3 {
   border: 2px solid brown;
   height: 200px;
   font-size: 50px
+}
+
+#banker {
+  font-size: 20px;
 }
