@@ -10,8 +10,6 @@ var shuffledDeck = deck.sort(function (a, b) {
     return 1
   }
 })
-// console.log("------------STARTING DECK " + shuffledDeck.join(' '))
-
 // -----DEAL CARDS-----分牌！！！
 function deal (ghost) {
   var takeTopCard = shuffledDeck.shift()
@@ -135,6 +133,8 @@ document.getElementById('deal').addEventListener('click', function () {
     pMultiplier.text(checkTwoCardsMultiplier(player))
     bMultiplier.text(checkTwoCardsMultiplier(banker))
 
+    display.text(find2CardsWinner())
+
     console.log("player's score " + score(player))
     console.log("banker's scrore " + score(banker))
 
@@ -182,13 +182,13 @@ var bValue = $('#bankerValue')
 var bMultiplier = $('#bankerMultiplier')
 
 document.getElementById('fight').addEventListener('click', function () {
-    display.text(findWinner())
+  display.text(find3CardsWinner())
 })
 // ----- FIND HANDTYPE -----
-function checkTwoCardsHandType (person) {     //FOR 2 CARDS
+function checkTwoCardsHandType (person) { // FOR 2 CARDS
   return natural(person)
 }
-function checkThreeCardsHandType (person) {   //FOR 3 CARDS
+function checkThreeCardsHandType (person) { // FOR 3 CARDS
   if (royalFlush(person)) {
     return 'ROYALFLUSH'
   } else if (trips(person)) {
@@ -197,16 +197,16 @@ function checkThreeCardsHandType (person) {   //FOR 3 CARDS
     return '3 PICTURES'
   } else if (suitCube(person)) {
     return '3 SAME SUIT'
-  } else{
+  } else {
     return 'HandType'
   }
 }
 // ----- FIND VALUE -----
 function checkValue (person) {
   return score(person)
-}//SCORE OF HAND
+} // SCORE OF HAND
 // ----- CHECK MULTIPLIER -----
-function checkTwoCardsMultiplier (person) {     //FOR 2 CARDS
+function checkTwoCardsMultiplier (person) { // FOR 2 CARDS
   if (natural(person)) {
     if (pair(person)) {
       return '2x'
@@ -214,14 +214,14 @@ function checkTwoCardsMultiplier (person) {     //FOR 2 CARDS
       return '2x'
     }
     return '1x'
-    }
+  }
   if (pair(person)) {
     return '2x'
   } else if (suitSuit(person)) {
     return '2x'
   }
 }
-function checkThreeCardsMultiplier (person) {     //FOR 3 CARDS
+function checkThreeCardsMultiplier (person) { // FOR 3 CARDS
   if (royalFlush(person)) {
     return '7x'
   } else if (trips(person)) {
@@ -230,78 +230,130 @@ function checkThreeCardsMultiplier (person) {     //FOR 3 CARDS
     return '3x'
   } else if (suitCube(person)) {
     return '3x'
-  } else{
+  } else {
     return 'Multiplier'
   }
 }
 
 // -----FIND WINNER----- only 2 cards.
-function findWinner () {
-  // if (pair(player) && pair(banker)) { // CHECK FOR PAIR
-  //   return 'BOTH HAVE PAIRS'
-  // } else if (pair(player)) {
-  //   return 'PLAYER HAS PAIR'
-  // } else if (pair(banker)) {
-  //   return 'BANKER HAS PAIR'
-  // }
-  // if (suitSuit(player) && suitSuit(banker)) { // CHECK FOR SUITED
-  //   return 'BOTH HAVE SUITED'
-  // } else if (suitSuit(player)) {
-  //   return 'PLAYER HAS SUITED'
-  // } else if (suitSuit(banker)) {
-  //   return 'BANKER HAS SUITED'
-  // }
-  // if (suitCube(player) && suitCube(banker)) { // CHECK FOR 3 SUITED
-  //   return 'BOTH HAVE 3 SUITED'
-  // } else if (suitCube(player)) {
-  //   return 'PLAYER HAS 3 SUITED'
-  // } else if (suitCube(banker)) {
-  //   return 'BANKER HAS 3 SUITED'
-  // }
-  // if (picCube(player) && picCube(banker)) { // CHECK FOR 3 PICTURES
-  //   return 'BOTH HAVE 3 PICTURES'
-  // } else if (picCube(player)) {
-  //   return 'PLAYER HAS 3 PICTURES'
-  // } else if (picCube(banker)) {
-  //   return 'BANKER HAS 3 PICTURES'
-  // }
-  // if (trips(player) && trips(banker)) { // CHECK FOR TRIPLE
-  //   return 'BOTH HAVE TRIPLE'
-  // } else if (trips(player)) {
-  //   return 'PLAYER HAS TRIPLE'
-  // } else if (trips(banker)) {
-  //   return 'BANKER HAS TRIPLE'
-  // }
-  // if (score(banker) > score(player)) {
-  //   return 'BANKER WINS!'
-  // } else if (score(player) > score(banker)) {
-  //   return 'PLAYER WINS!'
-  // } else if (score(banker) === score(player)) {
-  //   return "It's a DRAW"
-  // } else {
-  //   console.log('BuGGGGGGGG')
-  //   console.log('banker score is ' + score(banker) + 'player score is ' + score(player))
-  // }
+var bankerWins = 'BANKER WINS'
+var playerWins = 'PLAYER WINS'
+var draw = 'ITS A TIE'
+
+function find2CardsWinner () {
+  if (naturalDecider(banker) > 0 || naturalDecider(player) > 0) {
+    if (naturalDecider(banker) === naturalDecider(player)) {
+      return draw
+    } else if (naturalDecider(banker) > naturalDecider(player)) {
+      return bankerWins
+    } else if (naturalDecider(banker) < naturalDecider(player)) {
+      return playerWins
+    }
+  }
+} // BEFORE DRAW CARDS WINNER CHECK
+function find3CardsWinner () { // AFTER DRAW CARDS WINNER CHECK
+  if (royalFlush(player) && royalFlush(banker)) { // CHECK FOR ROYALFLUSH
+    return draw + ', BOTH HAVE ROYALFLUSH'
+  } else if (royalFlush(player)) {
+    return playerWins + ' WITH ROYALFLUSH'
+  } else if (royalFlush(banker)) {
+    return bankerWins + ' WITH ROYALFLUSH'
+  }
+  if (trips(player) && trips(banker)) { // CHECK FOR TRIPLE
+    return draw + ', BOTH HAVE TRIPLE'
+  } else if (trips(player)) {
+    return playerWins + ' WITH TRIPLE'
+  } else if (trips(banker)) {
+    return bankerWins + ' WITH TRIPLE'
+  }
+  if (picCube(player) && picCube(banker)) { // CHECK FOR 3 PICTURES
+    return draw + ', BOTH HAVE 3 PICTURES'
+  } else if (picCube(player)) {
+    return playerWins + ' WITH 3 PICTURES'
+  } else if (picCube(banker)) {
+    return bankerWins + ' WITH 3 PICTURES'
+  }
+  if (score(banker) === score(player)) { // CHECK SCORES
+    var three_suits0 = threeSuitsCheck()
+    if (three_suits0 === (draw + ', BOTH HAVE 3 SUITS')) { return three_suits0; }
+    return draw
+  } else if (score(banker) > score(player)) {
+    var three_suits1 = threeSuitsCheck()
+    if (three_suits1 === (bankerWins + ' WITH 3 SUITS')) { return three_suits1; }
+    return bankerWins
+  } else if (score(banker) < score(player)) {
+    var three_suits2 = threeSuitsCheck()
+    if (three_suits2 === (playerWins + ' WITH 3 SUITS')) { return three_suits2; }
+    return playerWins
+  }
+}
+
+function threeSuitsCheck () {
+  if (suitCube(player) && suitCube(banker)) { // CHECK FOR 3 SUITS
+    return draw + ', BOTH HAVE 3 SUITS'
+  } else if (suitCube(player)) {
+    return playerWins + ' WITH 3 SUITS'
+  } else if (suitCube(banker)) {
+    return bankerWins + ' WITH 3 SUITS'
+  }
+  return false
+}
+function pairCheck () {
+  if (pair(player) && pair(banker)) { // CHECK FOR PAIR
+    return draw + ', BOTH HAVE PAIRS'
+  } else if (pair(player)) {
+    return playerWins + ' WITH PAIR'
+  } else if (pair(banker)) {
+    return bankerWins + ' WITH PAIR'
+  }
+  return false
+}
+function suitSuitCheck () {
+  if (suitSuit(player) && suitSuit(banker)) { // CHECK FOR SUITED
+    return draw + ', BOTH HAVE SUITED'
+  } else if (suitSuit(player)) {
+    return playerWins + ' WITH SUITED'
+  } else if (suitSuit(banker)) {
+    return bankerWins + ' WITH SUITED'
+  }
+  return false
 }
 
 // --- ALL THE FUNCTIONSSSSS -----
-
-
 function natural (person) {
   if (score(person) > 8) {
     if (pair(person)) {
-      return 'NATURAL PAIR'
+      return 'NATURAL 9 PAIR'
     } else if (suitSuit(person)) {
-      return 'NATURAL SUITED'
+      return 'NATURAL 9 SUITED'
     }
-    return 'NATURAL'
+    return 'NATURAL 9'
   } else if (score(person) > 7) {
     if (pair(person)) {
-      return 'NATURAL PAIR'
+      return 'NATURAL 8 PAIR'
     } else if (suitSuit(person)) {
-      return 'NATURAL SUITED'
+      return 'NATURAL 8 SUITED'
     }
-    return 'NATURAL'
+    return 'NATURAL 8'
+  }
+}
+function naturalDecider (person) {
+  if (score(person) > 8) {
+    if (pair(person)) {
+      return 4
+    } else if (suitSuit(person)) {
+      return 4
+    }
+    return 3
+  } else if (score(person) > 7) {
+    if (pair(person)) {
+      return 2
+    } else if (suitSuit(person)) {
+      return 2
+    }
+    return 1
+  } else {
+    return -1
   }
 }
 function pair (person) { // PAIR FUNCTION
@@ -417,5 +469,22 @@ function showCardInHTML (person) {
 //     } else {
 //       console.log('you have no same suits')
 //     }
+//   }
+// }
+// function natural (person) {
+//   if (score(person) > 8) {
+//     if (pair(person)) {
+//       return 'NATURAL PAIR'
+//     } else if (suitSuit(person)) {
+//       return 'NATURAL SUITED'
+//     }
+//     return 'NATURAL'
+//   } else if (score(person) > 7) {
+//     if (pair(person)) {
+//       return 'NATURAL PAIR'
+//     } else if (suitSuit(person)) {
+//       return 'NATURAL SUITED'
+//     }
+//     return 'NATURAL'
 //   }
 // }
