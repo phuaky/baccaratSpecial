@@ -4,13 +4,16 @@ body {
   color: black;
   font-family: "Goudy Old Style", Garamond, "Big Caslon", "Times New Roman", serif;
 }
-
+h2 {
+    font-size: 50px;
+}
 #display {
   /*border:3px solid grey;*/
   height: 100%;
   width: 50%;
-  font-size: 40px;
+  font-size: 50px;
   vertical-align: auto;
+  color: #FF3232;
 }
 
 #cont1 {
@@ -69,7 +72,7 @@ body {
 }
 
 .avatar {
-  height: 120px;
+  height: 100px;
   width: auto;
 }
 #topRow {
@@ -91,4 +94,8 @@ body {
 }
 .col-md-4 {
   font-size: 20pt;
+}
+.boomz {
+  color: #FF3232;
+  font-weight: bolder;
 }
