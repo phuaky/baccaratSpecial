@@ -10,42 +10,71 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <h1>BACCARAT SPECIAL</h1>
-    <div id="display">
-      <h2>HUAT AHHH</h2>
-      <h3>WINNER DISPLAY</h3>
+    <div class = "container" id="cont">
+      <!-- <div class = "row" id="row">
+        <div class="col-md-3 words" id="banker">
+          <div>BANKER</div>
+          <span id="bank">$500,000</span>
+          <div><button type="submit" class="btn btn-primary pull-left" id="buyIn">BUY IN</button></div>
+        </div> -->
+        <div >
+          <h1>BACCARAT SPECIAL</h1>
+          <div id="display">
+            <h2>HUAT AHHH</h2>
+            <h3>WINNER DISPLAY</h3>
+          </div>
+          <!-- <div id="currentBet">$0.00</div> -->
+      </div>
+      <!-- <div class="col-md-3 words" id="player">
+        <div><button type="submit" class="btn btn-primary pull-left">CASH OUT</button></div>
+        <div id="credit">credit = 0</div>
+        <div id="cashOnHand">casho on hand = 0</div>
+      </div> -->
+      </div>
     </div>
 
-    <br>
-
-    <div class="container">
+    <div class="container" id="cont2">
+      <div class="row" id ="banker">BANKER</div>
+        <div class="row">
+        <div class="col-md-4">HandType
+        </div>
+        <div class="col-md-4">Value
+        </div>
+        <div class="col-md-4">Multiplier
+        </div>
+      </div>
       <div class="row">
-        <div class="col-md-1" id ="banker">Z<br>H<br>N<br>G<br>G<br>E<br>H</div>
+      <div class="col-md-4" id="bankerHandType">
+      </div>
+      <div class="col-md-4" id="bankerValue">0
+      </div>
+      <div class="col-md-4" id="bankerMultiplier">
+      </div>
+    </div>
+  </div>
+
+    <div class="container" id="cont1">
+
+      <div class="row" id="row1">
+        <div class="col-md-2"></div>
         <div class="col-md-3" id="banker1"></div>
         <div class="col-md-3" id="banker2"></div>
         <div class="col-md-3" id="banker3"></div>
-        <div class="col-md-2" id ="bankerScore">
-          <div class="littleRow" id="bankerHandType">HandType
-          </div>
-          <div class="littleRow" id="bankerValue">Value
-          </div>
-          <div class="littleRow" id="bankerMultiplier">Multiplier
-          </div>
-        </div>
-
       </div>
+
+
       <div class ="xiaorow" id="nav-bar">
-        <form class="form-inline pull-left">
+        <!-- <form class="form-inline pull-left">
           <div class="form-group">
             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
             <div class="input-group">
               <div class="input-group-addon">$</div>
-              <input type="text" class="form-control" placeholder="Bet big Win BIG!">
+              <input type="number" class="form-control" placeholder="Bet big Win BIG!" id="betAMT">
               <div class="input-group-addon">.00</div>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">BET</button>
-        </form>
+          <button type="button" class="btn btn-primary" id="bet">BET</button>
+        </form> -->
 
         <button type="button" class="btn btn-warning" id="bDraw">BANKER DRAW</button>
         <button type="button" class="btn btn-primary" id="deal">DEAL CARDS</button>
@@ -53,20 +82,30 @@
         <button type="button" class="btn btn-danger pull-right" id="fight">PIT!</button>
       </div>
 
-      <div class="row">
-        <div class="col-md-1" id ="player"> P<br>L<br>A<br>Y<br>E<br>R</div>
+
+      <div class="row" id="row1">
+        <div class="col-md-2"></div>
         <div class="col-md-3" id="player1"></div>
         <div class="col-md-3" id="player2"></div>
         <div class="col-md-3" id="player3"></div>
-        <div class="col-md-2" id ="playerScore">
-          <div class="littleRow" id="playerHandType">HandType
-          </div>
-          <div class="littleRow" id="playerValue">Value
-          </div>
-          <div class="littleRow" id="playerMultiplier"><span>Multiplier</span>
-          </div>
-        </div>
       </div>
+      </div>
+
+    <div class="container" id="cont2">
+      <div class="row">
+        <div class="col-md-4" id="playerHandType"></div>
+        <div class="col-md-4" id="playerValue">0</div>
+        <div class="col-md-4" id="playerMultiplier"></div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-4">HandType</div>
+          <div class="col-md-4">Value</div>
+          <div class="col-md-4">Multiplier</div>
+      </div>
+
+      <div class="row" id ="player">PLAYER</div>
+
 
     </div>
 

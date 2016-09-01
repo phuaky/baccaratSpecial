@@ -149,7 +149,8 @@ document.getElementById('pDraw').addEventListener('click', function () {
     deal(player)
     var div5 = document.getElementById('player3')
     var cardvz = dth(player)
-    div5.textContent = cardvz[2]
+    // div5.textContent = cardvz[2]
+    div5.innerHTML = "<span class='ace-profits'>"+ cardvz[2] + "</span>"
     dealCounter++
   }
   pHandType.text(checkThreeCardsHandType(player))
@@ -163,7 +164,8 @@ $('#bDraw').on('click', function () {
     deal(banker)
     var div6 = document.getElementById('banker3')
     var cardvz = dth(banker)
-    div6.textContent = cardvz[2]
+    // div6.textContent = cardvz[2]
+    div6.innerHTML = "<span class='ace-profits'>"+ cardvz[2] + "</span>"
     counterDeal++
   }
   bHandType.text(checkThreeCardsHandType(banker))
@@ -381,6 +383,20 @@ function showCardInHTML (person) {
     var id = person.type + (i + 1)
     var div = document.getElementById(id)
     var cardz = dth(person)
-    div.textContent = cardz[i]
+    console.log(cardz[i]);
+    div.innerHTML = "<img class ='card' src='imgs/Cards/" + cardz[i] + ".png'/>"
   }
 }
+
+
+//----------BETTING ELEMENT----------
+// var bankerMoney = 500000
+// var playerMoney = 0
+// var playerPlacedBet = 0
+// var currentBet = $('#currentBet').val()
+//
+// $('#bet').on('click', function() {
+//   playerPlacedBet = $('#betAMT').val()
+//   console.log(playerPlacedBet);
+//   currentBet.textContent = playerPlacedBet
+// })

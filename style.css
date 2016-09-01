@@ -1,22 +1,22 @@
 body {
   background-color: white;
   text-align: center;
-  color: #4D40FF
+  color: black;
 }
 
 #display {
   border:3px solid grey;
-  height: 200px;
+  height: 100px;
   width: 600px;
   margin-left: auto;
   margin-right: auto;
-  font-size: 70px;
+  font-size: 40px;
 }
 
-.container {
+#cont1 {
   border: 10px solid red;
   height: 500px;
-  width: 1200px;
+  width: 1000px;
   margin-left: auto;
   margin-right: auto;
   background: url(imgs/ovalpokertable.png);
@@ -25,27 +25,41 @@ body {
   background-position: center;
 }
 
-.littleRow {
-  border: 10px solid black;
-  height: 65px;
-}
-
-.row {
+#row1{
   border: 10px solid pink;
-  height: 220px;
+  height: 30%;
+  margin-top: 5%
 }
 
 .xiaorow {
   border: 2px solid green;
-  height: 40px;
+  height: 7%;
 }
 
 .col-md-3 {
   border: 2px solid brown;
-  height: 200px;
-  font-size: 50px
+  height: 100%;
 }
 
 #banker {
   font-size: 20px;
+}
+
+.words {
+  font-size: 10pt;
+}
+
+.ace-profits {
+  line-height: 4em;
+}
+
+.row {
+  border: 2px solid black;
+  height: 5%
+}
+
+
+.card {
+  height: 80px;
+  margin-top: 5%
 }
