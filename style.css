@@ -1,5 +1,5 @@
 body {
-  background-color: #FFD700;
+  background-color: white;
   text-align: center;
   color: #4D40FF
 }
@@ -19,10 +19,14 @@ body {
   width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  background: url(imgs/ovalpokertable.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .littleRow {
-  border: 10px solid white;
+  border: 10px solid black;
   height: 65px;
 }
 
