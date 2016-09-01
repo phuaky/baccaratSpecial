@@ -112,27 +112,6 @@ function score (input) {
     return singleValue2
   }
 }
-// Suits player is holding, can check 3 cards
-function suitty (input) {
-  var card1 = input.cards[0]
-  var card2 = input.cards[1]
-  var card3 = input.cards[2]
-  if (input.cards.length === 2) {
-    if (getSuit(card1) === getSuit(card2)) {
-      console.log('you have 2 ' + getSuit(card1))
-      return 200
-    } else {
-      console.log('you have ' + getSuit(card1) + ' and ' + getSuit(card2))
-    }
-  } else if (input.cards.length === 3) {
-    if (getSuit(card1) === getSuit(card2) && getSuit(card2) === getSuit(card3)) {
-      console.log('you have 3 ' + getSuit(card3))
-      return 300
-    } else {
-      console.log('you have no same suits')
-    }
-  }
-}
 
 var dealAlr = 0
 // -----GGGGAME STARTTTTTTTT-----
@@ -144,14 +123,11 @@ document.getElementById('deal').addEventListener('click', function () {
     deal(player)
     deal(banker)
 
-    // deal(player)
-    // deal(banker)
-
     showCardInHTML(player)
     showCardInHTML(banker)
 
-    pHandType.text(natural(player))
-    bHandType.text(natural(banker))
+    pHandType.text(checkTwoCardsHandType(player))
+    bHandType.text(checkTwoCardsHandType(banker))
 
     pValue.text(checkValue(player))
     bValue.text(checkValue(banker))
@@ -176,6 +152,7 @@ document.getElementById('pDraw').addEventListener('click', function () {
     div5.textContent = cardvz[2]
     dealCounter++
   }
+  pHandType.text(checkThreeCardsHandType(player))
   pValue.text(checkValue(player))
   pMultiplier.text(checkThreeCardsMultiplier(player))
 })
@@ -189,6 +166,7 @@ $('#bDraw').on('click', function () {
     div6.textContent = cardvz[2]
     counterDeal++
   }
+  bHandType.text(checkThreeCardsHandType(banker))
   bValue.text(checkValue(banker))
   bMultiplier.text(checkThreeCardsMultiplier(banker))
 })
@@ -206,9 +184,29 @@ var bMultiplier = $('#bankerMultiplier')
 document.getElementById('fight').addEventListener('click', function () {
     display.text(findWinner())
 })
-
+// ----- FIND HANDTYPE -----
+function checkTwoCardsHandType (person) {     //FOR 2 CARDS
+  return natural(person)
+}
+function checkThreeCardsHandType (person) {   //FOR 3 CARDS
+  if (royalFlush(person)) {
+    return 'ROYALFLUSH'
+  } else if (trips(person)) {
+    return 'TRIPLE'
+  }  else if (picCube(person)) {
+    return '3 PICTURES'
+  } else if (suitCube(person)) {
+    return '3 SAME SUIT'
+  } else{
+    return 'HandType'
+  }
+}
+// ----- FIND VALUE -----
+function checkValue (person) {
+  return score(person)
+}//SCORE OF HAND
 // ----- CHECK MULTIPLIER -----
-function checkTwoCardsMultiplier (person) {
+function checkTwoCardsMultiplier (person) {     //FOR 2 CARDS
   if (natural(person)) {
     if (pair(person)) {
       return '2x'
@@ -223,9 +221,10 @@ function checkTwoCardsMultiplier (person) {
     return '2x'
   }
 }
-
-function checkThreeCardsMultiplier (person) {
-  if (trips(person)) {
+function checkThreeCardsMultiplier (person) {     //FOR 3 CARDS
+  if (royalFlush(person)) {
+    return '7x'
+  } else if (trips(person)) {
     return '5x'
   }  else if (picCube(person)) {
     return '3x'
@@ -236,58 +235,53 @@ function checkThreeCardsMultiplier (person) {
   }
 }
 
-// ----- FIND VALUE -----
-function checkValue (person) {
-  return score(person)
-}
-
 // -----FIND WINNER----- only 2 cards.
 function findWinner () {
-  if (pair(player) && pair(banker)) { // CHECK FOR PAIR
-    return 'BOTH HAVE PAIRS'
-  } else if (pair(player)) {
-    return 'PLAYER HAS PAIR'
-  } else if (pair(banker)) {
-    return 'BANKER HAS PAIR'
-  }
-  if (suitSuit(player) && suitSuit(banker)) { // CHECK FOR SUITED
-    return 'BOTH HAVE SUITED'
-  } else if (suitSuit(player)) {
-    return 'PLAYER HAS SUITED'
-  } else if (suitSuit(banker)) {
-    return 'BANKER HAS SUITED'
-  }
-  if (suitCube(player) && suitCube(banker)) { // CHECK FOR 3 SUITED
-    return 'BOTH HAVE 3 SUITED'
-  } else if (suitCube(player)) {
-    return 'PLAYER HAS 3 SUITED'
-  } else if (suitCube(banker)) {
-    return 'BANKER HAS 3 SUITED'
-  }
-  if (picCube(player) && picCube(banker)) { // CHECK FOR 3 PICTURES
-    return 'BOTH HAVE 3 PICTURES'
-  } else if (picCube(player)) {
-    return 'PLAYER HAS 3 PICTURES'
-  } else if (picCube(banker)) {
-    return 'BANKER HAS 3 PICTURES'
-  }
-  if (trips(player) && trips(banker)) { // CHECK FOR TRIPLE
-    return 'BOTH HAVE TRIPLE'
-  } else if (trips(player)) {
-    return 'PLAYER HAS TRIPLE'
-  } else if (trips(banker)) {
-    return 'BANKER HAS TRIPLE'
-  }
-  if (score(banker) > score(player)) {
-    return 'BANKER WINS!'
-  } else if (score(player) > score(banker)) {
-    return 'PLAYER WINS!'
-  } else if (score(banker) === score(player)) {
-    return "It's a DRAW"
-  } else {
-    console.log('BuGGGGGGGG')
-    console.log('banker score is ' + score(banker) + 'player score is ' + score(player))
-  }
+  // if (pair(player) && pair(banker)) { // CHECK FOR PAIR
+  //   return 'BOTH HAVE PAIRS'
+  // } else if (pair(player)) {
+  //   return 'PLAYER HAS PAIR'
+  // } else if (pair(banker)) {
+  //   return 'BANKER HAS PAIR'
+  // }
+  // if (suitSuit(player) && suitSuit(banker)) { // CHECK FOR SUITED
+  //   return 'BOTH HAVE SUITED'
+  // } else if (suitSuit(player)) {
+  //   return 'PLAYER HAS SUITED'
+  // } else if (suitSuit(banker)) {
+  //   return 'BANKER HAS SUITED'
+  // }
+  // if (suitCube(player) && suitCube(banker)) { // CHECK FOR 3 SUITED
+  //   return 'BOTH HAVE 3 SUITED'
+  // } else if (suitCube(player)) {
+  //   return 'PLAYER HAS 3 SUITED'
+  // } else if (suitCube(banker)) {
+  //   return 'BANKER HAS 3 SUITED'
+  // }
+  // if (picCube(player) && picCube(banker)) { // CHECK FOR 3 PICTURES
+  //   return 'BOTH HAVE 3 PICTURES'
+  // } else if (picCube(player)) {
+  //   return 'PLAYER HAS 3 PICTURES'
+  // } else if (picCube(banker)) {
+  //   return 'BANKER HAS 3 PICTURES'
+  // }
+  // if (trips(player) && trips(banker)) { // CHECK FOR TRIPLE
+  //   return 'BOTH HAVE TRIPLE'
+  // } else if (trips(player)) {
+  //   return 'PLAYER HAS TRIPLE'
+  // } else if (trips(banker)) {
+  //   return 'BANKER HAS TRIPLE'
+  // }
+  // if (score(banker) > score(player)) {
+  //   return 'BANKER WINS!'
+  // } else if (score(player) > score(banker)) {
+  //   return 'PLAYER WINS!'
+  // } else if (score(banker) === score(player)) {
+  //   return "It's a DRAW"
+  // } else {
+  //   console.log('BuGGGGGGGG')
+  //   console.log('banker score is ' + score(banker) + 'player score is ' + score(player))
+  // }
 }
 
 // --- ALL THE FUNCTIONSSSSS -----
@@ -324,6 +318,9 @@ function picCube (person) {
 }
 function trips (person) {
   return (getFace(person.cards[0]) === getFace(person.cards[1]) && getFace(person.cards[1]) === getFace(person.cards[2]))
+}
+function royalFlush (person) {
+  return ((getSuit(person.cards[0]) === getSuit(person.cards[1]) && getSuit(person.cards[1]) === getSuit(person.cards[2])) && (getPic(person.cards[0]) > 0 && getPic(person.cards[1]) > 0 && getPic(person.cards[2]) > 0))
 }
 
 // DOM MANIPULATION HERE
@@ -399,5 +396,26 @@ function showCardInHTML (person) {
 //   } else {
 //     console.log('BuGGGGGGGG')
 //     console.log('banker score is ' + score(banker) + 'player score is ' + score(player))
+//   }
+// }
+// // Suits player is holding, can check 3 cards
+// function suitty (input) {
+//   var card1 = input.cards[0]
+//   var card2 = input.cards[1]
+//   var card3 = input.cards[2]
+//   if (input.cards.length === 2) {
+//     if (getSuit(card1) === getSuit(card2)) {
+//       console.log('you have 2 ' + getSuit(card1))
+//       return 200
+//     } else {
+//       console.log('you have ' + getSuit(card1) + ' and ' + getSuit(card2))
+//     }
+//   } else if (input.cards.length === 3) {
+//     if (getSuit(card1) === getSuit(card2) && getSuit(card2) === getSuit(card3)) {
+//       console.log('you have 3 ' + getSuit(card3))
+//       return 300
+//     } else {
+//       console.log('you have no same suits')
+//     }
 //   }
 // }
