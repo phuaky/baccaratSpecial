@@ -2,19 +2,19 @@ body {
   background-color: white;
   text-align: center;
   color: black;
+  font-family: "Goudy Old Style", Garamond, "Big Caslon", "Times New Roman", serif;
 }
 
 #display {
-  border:3px solid grey;
-  height: 100px;
-  width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  /*border:3px solid grey;*/
+  height: 100%;
+  width: 50%;
   font-size: 40px;
+  vertical-align: auto;
 }
 
 #cont1 {
-  border: 10px solid red;
+  /*border: 10px solid red;*/
   height: 500px;
   width: 1000px;
   margin-left: auto;
@@ -26,18 +26,20 @@ body {
 }
 
 #row1{
-  border: 10px solid pink;
   height: 30%;
-  margin-top: 5%
+  margin-top: 6%
 }
 
 .xiaorow {
-  border: 2px solid green;
-  height: 7%;
+  /*border: 2px solid green;*/
+  height: 8%;
+  width:80%;
+  margin-left: auto;
+  margin-right: auto;
+
 }
 
 .col-md-3 {
-  border: 2px solid brown;
   height: 100%;
 }
 
@@ -54,12 +56,39 @@ body {
 }
 
 .row {
-  border: 2px solid black;
   height: 5%
 }
 
-
 .card {
   height: 80px;
-  margin-top: 5%
+  margin-top: 18%
+}
+
+#person {
+  font-size: 30pt;
+}
+
+.avatar {
+  height: 120px;
+  width: auto;
+}
+#topRow {
+  /*border: 3px solid yellow;*/
+}
+
+.title2 {
+  height: 80px;
+  width: auto;
+}
+
+.title {
+  height: 100px;
+  width: auto;
+}
+#dealCards {
+  height: 80px;
+
+}
+.col-md-4 {
+  font-size: 20pt;
 }

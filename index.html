@@ -17,14 +17,21 @@
           <span id="bank">$500,000</span>
           <div><button type="submit" class="btn btn-primary pull-left" id="buyIn">BUY IN</button></div>
         </div> -->
-        <div >
-          <h1>BACCARAT SPECIAL</h1>
-          <div id="display">
-            <h2>HUAT AHHH</h2>
-            <h3>WINNER DISPLAY</h3>
+        <div class="row" id="topRow">
+          <div>
+            <img class="title2" src="imgs/baccaratTitle.png" />
+            <img class="title" src="imgs/casinoTitle.png" />
+            <img class="title2" src="imgs/baccaratTitle1.png" />
           </div>
-          <!-- <div id="currentBet">$0.00</div> -->
+          <div class="col-md-3"> <img class="avatar" src="imgs/triple.png" /> </div>
+          <div class="col-md-6" id="display">
+            <h2>What is life if not a gamble?</h2>
+          </div>
+          <div class="col-md-3"> <img class="avatar" src="imgs/dollar.png" /> </div>
+
+
       </div>
+                <!-- <div id="currentBet">$0.00</div> -->
       <!-- <div class="col-md-3 words" id="player">
         <div><button type="submit" class="btn btn-primary pull-left">CASH OUT</button></div>
         <div id="credit">credit = 0</div>
@@ -34,7 +41,7 @@
     </div>
 
     <div class="container" id="cont2">
-      <div class="row" id ="banker">BANKER</div>
+      <div class="row" id ="person"> <img class="avatar" src="imgs/casinoGirl.png" />BANKER</div>
         <div class="row">
         <div class="col-md-4">HandType
         </div>
@@ -56,14 +63,14 @@
     <div class="container" id="cont1">
 
       <div class="row" id="row1">
-        <div class="col-md-2"></div>
-        <div class="col-md-3" id="banker1"></div>
-        <div class="col-md-3" id="banker2"></div>
-        <div class="col-md-3" id="banker3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-2" id="banker1"></div>
+        <div class="col-md-2" id="banker2"></div>
+        <div class="col-md-2" id="banker3"></div>
       </div>
 
 
-      <div class ="xiaorow" id="nav-bar">
+      <div class ="xiaorow">
         <!-- <form class="form-inline pull-left">
           <div class="form-group">
             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
@@ -75,19 +82,18 @@
           </div>
           <button type="button" class="btn btn-primary" id="bet">BET</button>
         </form> -->
-
-        <button type="button" class="btn btn-warning" id="bDraw">BANKER DRAW</button>
-        <button type="button" class="btn btn-primary" id="deal">DEAL CARDS</button>
-        <button type="button" class="btn btn-warning" id="pDraw">PLAYER DRAW</button>
-        <button type="button" class="btn btn-danger pull-right" id="fight">PIT!</button>
+        <span class="btn" id="deal"><img id ="dealCards" src="imgs/dealCards.png" /></span>
+        <button type="button" class="btn btn-warning glyphicon glyphicon-hand-up" id="bDraw"></button>
+        <button type="button" class="btn btn-warning glyphicon glyphicon-hand-down" id="pDraw"></button>
+        <button type="button" class="btn btn-danger glyphicon glyphicon-eye-open" id="fight"></button>
       </div>
 
 
       <div class="row" id="row1">
-        <div class="col-md-2"></div>
-        <div class="col-md-3" id="player1"></div>
-        <div class="col-md-3" id="player2"></div>
-        <div class="col-md-3" id="player3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-2" id="player1"></div>
+        <div class="col-md-2" id="player2"></div>
+        <div class="col-md-2" id="player3"></div>
       </div>
       </div>
 
@@ -104,7 +110,7 @@
           <div class="col-md-4">Multiplier</div>
       </div>
 
-      <div class="row" id ="player">PLAYER</div>
+      <div class="row" id ="person"> <img class="avatar" src="imgs/player.png" />PLAYER</div>
 
 
     </div>

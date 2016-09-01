@@ -145,32 +145,38 @@ document.getElementById('deal').addEventListener('click', function () {
 // Player Draw
 var dealCounter = 0
 document.getElementById('pDraw').addEventListener('click', function () {
-  if (dealCounter === 0) {
-    deal(player)
-    var div5 = document.getElementById('player3')
-    var cardvz = dth(player)
-    // div5.textContent = cardvz[2]
-    div5.innerHTML = "<span class='ace-profits'>"+ cardvz[2] + "</span>"
-    dealCounter++
+  if (dealAlr === 1) {
+    if (dealCounter === 0) {
+      deal(player)
+      var div5 = document.getElementById('player3')
+      var cardvz = dth(player)
+      // div5.textContent = cardvz[2]
+      div5.innerHTML = "<span class='ace-profits'>" + cardvz[2] + '</span>'
+      div5.innerHTML = "<img class ='card' src='imgs/Cards/" + cardvz[2] + ".png'/>"
+      dealCounter++
+    }
+    pHandType.text(checkThreeCardsHandType(player))
+    pValue.text(checkValue(player))
+    pMultiplier.text(checkThreeCardsMultiplier(player))
   }
-  pHandType.text(checkThreeCardsHandType(player))
-  pValue.text(checkValue(player))
-  pMultiplier.text(checkThreeCardsMultiplier(player))
 })
 
 var counterDeal = 0
 $('#bDraw').on('click', function () {
-  if (counterDeal === 0) {
-    deal(banker)
-    var div6 = document.getElementById('banker3')
-    var cardvz = dth(banker)
-    // div6.textContent = cardvz[2]
-    div6.innerHTML = "<span class='ace-profits'>"+ cardvz[2] + "</span>"
-    counterDeal++
+  if (dealAlr === 1) {
+    if (counterDeal === 0) {
+      deal(banker)
+      var div6 = document.getElementById('banker3')
+      var cardvz = dth(banker)
+      // div6.textContent = cardvz[2]
+      // div6.innerHTML = "<span class='ace-profits'>"+ cardvz[2] + "</span>"
+      div6.innerHTML = "<img class ='card' src='imgs/Cards/" + cardvz[2] + ".png'/>"
+      counterDeal++
+    }
+    bHandType.text(checkThreeCardsHandType(banker))
+    bValue.text(checkValue(banker))
+    bMultiplier.text(checkThreeCardsMultiplier(banker))
   }
-  bHandType.text(checkThreeCardsHandType(banker))
-  bValue.text(checkValue(banker))
-  bMultiplier.text(checkThreeCardsMultiplier(banker))
 })
 
 var display = $('#display')
@@ -200,7 +206,7 @@ function checkThreeCardsHandType (person) { // FOR 3 CARDS
   } else if (suitCube(person)) {
     return '3 SAME SUIT'
   } else {
-    return 'HandType'
+    return ' '
   }
 }
 // ----- FIND VALUE -----
@@ -233,7 +239,7 @@ function checkThreeCardsMultiplier (person) { // FOR 3 CARDS
   } else if (suitCube(person)) {
     return '3x'
   } else {
-    return 'Multiplier'
+    return ' '
   }
 }
 
@@ -383,13 +389,12 @@ function showCardInHTML (person) {
     var id = person.type + (i + 1)
     var div = document.getElementById(id)
     var cardz = dth(person)
-    console.log(cardz[i]);
+    console.log(cardz[i])
     div.innerHTML = "<img class ='card' src='imgs/Cards/" + cardz[i] + ".png'/>"
   }
 }
 
-
-//----------BETTING ELEMENT----------
+// ----------BETTING ELEMENT----------
 // var bankerMoney = 500000
 // var playerMoney = 0
 // var playerPlacedBet = 0
@@ -397,6 +402,6 @@ function showCardInHTML (person) {
 //
 // $('#bet').on('click', function() {
 //   playerPlacedBet = $('#betAMT').val()
-//   console.log(playerPlacedBet);
+//   console.log(playerPlacedBet)
 //   currentBet.textContent = playerPlacedBet
 // })
