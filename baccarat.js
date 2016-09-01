@@ -100,10 +100,6 @@ function score (input) {
   var card1 = input.cards[0]
   var card2 = input.cards[1]
   var card3 = input.cards[2]
-  // var cardy = 0
-  // for (var i = 0; i < input.cards.length; i++) {
-  //   cardy = input.cards[i]
-  //   console.log(cardy)
   var twoCardsValue = getValue(card1) + getValue(card2)
   var threeCardsValue = getValue(card1) + getValue(card2) + getValue(card3)
   if (input.cards.length === 2) {
@@ -162,33 +158,37 @@ document.getElementById('deal').addEventListener('click', function () {
 
 // Player Draw
 var dealCounter = 0
-document.getElementById('draw').addEventListener('click', function () {
+document.getElementById('pDraw').addEventListener('click', function () {
   if (dealCounter === 0) {
     deal(player)
     var div5 = document.getElementById('player3')
     var cardvz = dth(player)
     div5.textContent = cardvz[2]
     dealCounter++
-  } else if (dealCounter === 1) {
+  }
+})
+
+var counterDeal = 0
+$('#bDraw').on('click', function () {
+  if (dealCounter === 0) {
     deal(banker)
     var div6 = document.getElementById('banker3')
     var cardvz = dth(banker)
     div6.textContent = cardvz[2]
-    dealCounter++
+    counterDeal++
   }
 })
 
 var display = $('#display')
+var pHandType = $('#playerHandType')
+var bHandType = $('#bankerHantType')
 document.getElementById('fight').addEventListener('click', function () {
-display.text(compareValue())
-// score(banker)
-// score(player)
-// suitty(banker)
-// suitty(player)
+  display.text(compareValue())
+  pHandType.text(natural())
+  bHandType.text(natural())
 })
 
 // -----CHECK WINNER----- only 2 cards.
-
 
 function compareValue () {
   if (pair(player) && pair(banker)) { // CHECK FOR PAIR
@@ -240,13 +240,24 @@ function compareValue () {
 
 // --- ALL THE FUNCTIONSSSSS -----
 function natural () {
-  if (score(banker) > 7 || score(player) > 7) {
-    console.log('GAME-END, SOMEBODY HAS NATURAL!')
-    if (suitty(banker) === 200 || suitty(player) === 200) {
-      console.log('WITH DOUBLE!!!!!!')
-      return 'WITH DOUBLE!!!!!!' // function to end game
-    }
+  if (score(banker) > 8 && score(player) > 8) {
+    console.log('GAME-END, BOTH NATURAL 9!')
+    return 'NATURAL 9'
+  } else if (score(banker) > 8) {
+    return 'BANKER NATURAL 9'
+  } else if (score(player) > 8) {
+    return 'PLAYER NATURAL 9'
+  } else if (score(banker) > 7 && score(player) > 7) {
+    return 'NATURAL 8'
+  } else if (score(banker) > 7) {
+    return 'BANKER NATURAL 8'
+  } else if (score(player) > 7) {
+    return 'PLAYER NATURAL 8'
   }
+  // if (suitty(banker) === 200 || suitty(player) === 200) {
+  //   console.log('WITH DOUBLE!!!!!!')
+  //   return 'WITH DOUBLE!!!!!!' // function to end game
+  // }
 }
 
 function pair (person) { // PAIR FUNCTION

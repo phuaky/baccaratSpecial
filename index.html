@@ -25,11 +25,11 @@
         <div class="col-md-3" id="banker2"></div>
         <div class="col-md-3" id="banker3"></div>
         <div class="col-md-2" id ="bankerScore">
-          <div class="littleRow">HandType
+          <div class="littleRow" id="bankerHandType">HandType
           </div>
-          <div class="littleRow">Value
+          <div class="littleRow" id="bankerValue">Value
           </div>
-          <div class="littleRow">Multiplier
+          <div class="littleRow" id="bankerMultiplier">Multiplier
           </div>
         </div>
 
@@ -40,15 +40,16 @@
             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
             <div class="input-group">
               <div class="input-group-addon">$</div>
-              <input type="text" class="form-control" placeholder="Buy big Win BIG!">
+              <input type="text" class="form-control" placeholder="Bet big Win BIG!">
               <div class="input-group-addon">.00</div>
             </div>
           </div>
           <button type="submit" class="btn btn-primary">BET</button>
         </form>
 
+        <button type="button" class="btn btn-warning" id="bDraw">BANKER DRAW</button>
         <button type="button" class="btn btn-primary" id="deal">DEAL CARDS</button>
-        <button type="button" class="btn btn-warning" id="draw">DRAW</button>
+        <button type="button" class="btn btn-warning" id="pDraw">PLAYER DRAW</button>
         <button type="button" class="btn btn-danger pull-right" id="fight">PIT!</button>
       </div>
 
@@ -58,11 +59,11 @@
         <div class="col-md-3" id="player2"></div>
         <div class="col-md-3" id="player3"></div>
         <div class="col-md-2" id ="playerScore">
-          <div class="littleRow">HandType
+          <div class="littleRow" id="playerHandType">HandType
           </div>
-          <div class="littleRow">Value
+          <div class="littleRow" id="playerValue">Value
           </div>
-          <div class="littleRow">Multiplier
+          <div class="littleRow" id="playerMultiplier">Multiplier
           </div>
         </div>
       </div>
