@@ -104,3 +104,7 @@ p {
   font-weight: bolder;
   color: blue;
 }
+
+span {
+  font-size: 30pt;
+}

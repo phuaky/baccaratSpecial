@@ -1,3 +1,9 @@
+// sounds
+var dealCard = new Audio('sound/deal_cards.mp3');
+var bankerDraws = new Audio('sound/banker_draws.mp3');
+var playerDraws = new Audio('sound/player_draws.mp3');
+var showDown = new Audio('sound/showdown!.mp3');
+
 var deck = [] //  Start with blank deck
 for (var i = 1; i < 53; i++) { // Cards into deck
   deck.push(i)
@@ -115,6 +121,7 @@ var dealAlr = 0
 // -----GGGGAME STARTTTTTTTT-----
 document.getElementById('deal').addEventListener('click', function () {
   if (dealAlr === 0) {
+    dealCard.play();
     deal(player)
     deal(banker)
 
@@ -147,6 +154,7 @@ var dealCounter = 0
 document.getElementById('pDraw').addEventListener('click', function () {
   if (dealAlr === 1) {
     if (dealCounter === 0) {
+      playerDraws.play();
       deal(player)
       var div5 = document.getElementById('player3')
       var cardvz = dth(player)
@@ -165,6 +173,7 @@ var counterDeal = 0
 $('#bDraw').on('click', function () {
   if (dealAlr === 1) {
     if (counterDeal === 0) {
+      bankerDraws.play();
       deal(banker)
       var div6 = document.getElementById('banker3')
       var cardvz = dth(banker)
@@ -190,6 +199,7 @@ var bValue = $('#bankerValue')
 var bMultiplier = $('#bankerMultiplier')
 
 document.getElementById('fight').addEventListener('click', function () {
+  showDown.play();
   display.text(find3CardsWinner())
 })
 // ----- FIND HANDTYPE -----
