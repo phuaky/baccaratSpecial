@@ -1,8 +1,8 @@
 // sounds
-var dealCard = new Audio('sound/deal_cards.mp3');
-var bankerDraws = new Audio('sound/banker_draws.mp3');
-var playerDraws = new Audio('sound/player_draws.mp3');
-var showDown = new Audio('sound/showdown!.mp3');
+var dealCard = new Audio('sound/deal_cards.mp3')
+var bankerDraws = new Audio('sound/banker_draws.mp3')
+var playerDraws = new Audio('sound/player_draws.mp3')
+var showDown = new Audio('sound/showdown!.mp3')
 
 var deck = [] //  Start with blank deck
 for (var i = 1; i < 53; i++) { // Cards into deck
@@ -121,7 +121,7 @@ var dealAlr = 0
 // -----GGGGAME STARTTTTTTTT-----
 document.getElementById('deal').addEventListener('click', function () {
   if (dealAlr === 0) {
-    dealCard.play();
+    dealCard.play()
     deal(player)
     deal(banker)
 
@@ -146,22 +146,49 @@ document.getElementById('deal').addEventListener('click', function () {
     console.log("banker's scrore " + score(banker))
 
     dealAlr++
+  } else if (dealAlr === 1) {
+    console.log('im working')
+
+    clearCardInHTML(player)
+    clearCardInHTML(banker)
+
+    player = {
+      type: 'player',
+      cards: []
+    }
+    banker = {
+      type: 'banker',
+      cards: []
+    }
+
+    pHandType.text(" ")
+    bHandType.text(" ")
+
+    pValue.text("0")
+    bValue.text("0")
+
+    pMultiplier.text(" ")
+    bMultiplier.text(" ")
+
+    display.text("NEW HAND")
+
+    dealAlr--
   }
-})
+}) // DEALING
 
 // Player Draw
 var dealCounter = 0
 document.getElementById('pDraw').addEventListener('click', function () {
   if (dealAlr === 1) {
     if (dealCounter === 0) {
-      playerDraws.play();
+      playerDraws.play()
       deal(player)
       var div5 = document.getElementById('player3')
       var cardvz = dth(player)
       // div5.textContent = cardvz[2]
       div5.innerHTML = "<span class='ace-profits'>" + cardvz[2] + '</span>'
       div5.innerHTML = "<img class ='card' src='imgs/Cards/" + cardvz[2] + ".png'/>"
-      dealCounter++
+      // dealCounter++
     }
     pHandType.text(checkThreeCardsHandType(player))
     pValue.text(checkValue(player))
@@ -173,14 +200,14 @@ var counterDeal = 0
 $('#bDraw').on('click', function () {
   if (dealAlr === 1) {
     if (counterDeal === 0) {
-      bankerDraws.play();
+      bankerDraws.play()
       deal(banker)
       var div6 = document.getElementById('banker3')
       var cardvz = dth(banker)
       // div6.textContent = cardvz[2]
       // div6.innerHTML = "<span class='ace-profits'>"+ cardvz[2] + "</span>"
       div6.innerHTML = "<img class ='card' src='imgs/Cards/" + cardvz[2] + ".png'/>"
-      counterDeal++
+      // counterDeal++
     }
     bHandType.text(checkThreeCardsHandType(banker))
     bValue.text(checkValue(banker))
@@ -199,7 +226,7 @@ var bValue = $('#bankerValue')
 var bMultiplier = $('#bankerMultiplier')
 
 document.getElementById('fight').addEventListener('click', function () {
-  showDown.play();
+  showDown.play()
   display.text(find3CardsWinner())
 })
 // ----- FIND HANDTYPE -----
@@ -401,6 +428,16 @@ function showCardInHTML (person) {
     var cardz = dth(person)
     console.log(cardz[i])
     div.innerHTML = "<img class ='card' src='imgs/Cards/" + cardz[i] + ".png'/>"
+  }
+}
+
+function clearCardInHTML (person) {
+  for (var i = 0; i < person.cards.length; i++) {
+    var id = person.type + (i + 1)
+    var div = document.getElementById(id)
+    var cardz = dth(person)
+    console.log(cardz[i])
+    div.innerHTML = ''
   }
 }
 
