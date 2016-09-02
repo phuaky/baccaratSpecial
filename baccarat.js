@@ -146,6 +146,7 @@ document.getElementById('deal').addEventListener('click', function () {
     console.log("banker's scrore " + score(banker))
 
     dealAlr++
+    console.log("deal pressing");
   } else if (dealAlr === 1) {
     console.log('im working')
 
@@ -172,7 +173,9 @@ document.getElementById('deal').addEventListener('click', function () {
 
     display.text("NEW HAND")
 
-    dealAlr--
+    dealAlr = 0
+    counterDeal = 0
+    dealCounter = 0
   }
 }) // DEALING
 
@@ -188,7 +191,7 @@ document.getElementById('pDraw').addEventListener('click', function () {
       // div5.textContent = cardvz[2]
       div5.innerHTML = "<span class='ace-profits'>" + cardvz[2] + '</span>'
       div5.innerHTML = "<img class ='card' src='imgs/Cards/" + cardvz[2] + ".png'/>"
-      // dealCounter++
+      dealCounter++
     }
     pHandType.text(checkThreeCardsHandType(player))
     pValue.text(checkValue(player))
@@ -207,7 +210,7 @@ $('#bDraw').on('click', function () {
       // div6.textContent = cardvz[2]
       // div6.innerHTML = "<span class='ace-profits'>"+ cardvz[2] + "</span>"
       div6.innerHTML = "<img class ='card' src='imgs/Cards/" + cardvz[2] + ".png'/>"
-      // counterDeal++
+      counterDeal++
     }
     bHandType.text(checkThreeCardsHandType(banker))
     bValue.text(checkValue(banker))
