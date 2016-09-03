@@ -3,6 +3,8 @@ var dealCard = new Audio('sound/deal_cards.mp3')
 var bankerDraws = new Audio('sound/banker_draws.mp3')
 var playerDraws = new Audio('sound/player_draws.mp3')
 var showDown = new Audio('sound/showdown!.mp3')
+var bankerWinner = new Audio('sound/banker_wins.mp3')
+var playerWinner = new Audio('sound/player_wins.mp3')
 
 var deck = [] //  Start with blank deck
 for (var i = 1; i < 53; i++) { // Cards into deck
@@ -121,7 +123,6 @@ var dealAlr = 0
 // -----GGGGAME STARTTTTTTTT-----
 document.getElementById('deal').addEventListener('click', function () {
   if (dealAlr === 0) {
-    dealCard.play()
     deal(player)
     deal(banker)
 
@@ -141,15 +142,18 @@ document.getElementById('deal').addEventListener('click', function () {
     bMultiplier.text(checkTwoCardsMultiplier(banker))
 
     display.text(find2CardsWinner())
-
-    console.log("player's score " + score(player))
-    console.log("banker's scrore " + score(banker))
+    //sound
+    dealCard.play()
+    dealCard.addEventListener("ended", function() {
+      if (find2CardsWinner() === 'BANKER WINS') {
+        bankerWinner.play()
+      } else if (find2CardsWinner() === 'PLAYER WINS') {
+        playerWinner.play()
+      }
+    })
 
     dealAlr++
-    console.log("deal pressing");
   } else if (dealAlr === 1) {
-    console.log('im working')
-
     clearCardInHTML(player)
     clearCardInHTML(banker)
 
@@ -162,16 +166,16 @@ document.getElementById('deal').addEventListener('click', function () {
       cards: []
     }
 
-    pHandType.text(" ")
-    bHandType.text(" ")
+    pHandType.text(' ')
+    bHandType.text(' ')
 
-    pValue.text("0")
-    bValue.text("0")
+    pValue.text('0')
+    bValue.text('0')
 
-    pMultiplier.text(" ")
-    bMultiplier.text(" ")
+    pMultiplier.text(' ')
+    bMultiplier.text(' ')
 
-    display.text("NEW HAND")
+    display.text('NEW HAND')
 
     dealAlr = 0
     counterDeal = 0
@@ -229,9 +233,15 @@ var bValue = $('#bankerValue')
 var bMultiplier = $('#bankerMultiplier')
 
 document.getElementById('fight').addEventListener('click', function () {
-  showDown.play()
+  // showDown.play()
   display.text(find3CardsWinner())
+  if (find3CardsWinner() === 'BANKER WINS') {
+    bankerWinner.play()
+  } else if (find3CardsWinner() === 'PLAYER WINS') {
+    playerWinner.play()
+  }
 })
+
 // ----- FIND HANDTYPE -----
 function checkTwoCardsHandType (person) { // FOR 2 CARDS
   return natural(person)
@@ -328,10 +338,12 @@ function find3CardsWinner () { // AFTER DRAW CARDS WINNER CHECK
   } else if (score(banker) > score(player)) {
     var three_suits1 = threeSuitsCheck()
     if (three_suits1 === (bankerWins + ' WITH 3 SUITS')) { return three_suits1; }
+    // bankerWins.play()
     return bankerWins
   } else if (score(banker) < score(player)) {
     var three_suits2 = threeSuitsCheck()
     if (three_suits2 === (playerWins + ' WITH 3 SUITS')) { return three_suits2; }
+    // playerWins.play()
     return playerWins
   }
 }
@@ -429,7 +441,6 @@ function showCardInHTML (person) {
     var id = person.type + (i + 1)
     var div = document.getElementById(id)
     var cardz = dth(person)
-    console.log(cardz[i])
     div.innerHTML = "<img class ='card' src='imgs/Cards/" + cardz[i] + ".png'/>"
   }
 }
@@ -439,7 +450,6 @@ function clearCardInHTML (person) {
     var id = person.type + (i + 1)
     var div = document.getElementById(id)
     var cardz = dth(person)
-    console.log(cardz[i])
     div.innerHTML = ''
   }
 }
