@@ -5,6 +5,16 @@ var playerDraws = new Audio('sound/player_draws.mp3')
 var showDown = new Audio('sound/showdown!.mp3')
 var bankerWinner = new Audio('sound/banker_wins.mp3')
 var playerWinner = new Audio('sound/player_wins.mp3')
+var itsATie = new Audio('sound/its_a_tie.mp3')
+var royalFlushSound = new Audio('sound/with_royal_flush.mp3')
+var threeOfAKindSound = new Audio('sound/with_3_of_a_kind.mp3')
+var threePicturesSound = new Audio('sound/with_3_pictures.mp3')
+var naturalNinePair = new Audio('sound/natural_9_pair.mp3')
+var naturalNineSuited = new Audio('sound/natural_9_suited.mp3')
+var naturalNine = new Audio('sound/natural_9.mp3')
+var naturalEightPair = new Audio('sound/natural_8_pair.mp3')
+var naturalEightSuited = new Audio('sound/natural_8_suited.mp3')
+var naturalEight = new Audio('sound/natural_8.mp3')
 
 var deck = [] //  Start with blank deck
 for (var i = 1; i < 53; i++) { // Cards into deck
@@ -142,13 +152,15 @@ document.getElementById('deal').addEventListener('click', function () {
     bMultiplier.text(checkTwoCardsMultiplier(banker))
 
     display.text(find2CardsWinner())
-    //sound
+    // sound
     dealCard.play()
-    dealCard.addEventListener("ended", function() {
+    dealCard.addEventListener('ended', function () {
       if (find2CardsWinner() === 'BANKER WINS') {
         bankerWinner.play()
       } else if (find2CardsWinner() === 'PLAYER WINS') {
         playerWinner.play()
+      } else if (find2CardsWinner() === 'ITS A TIE') {
+        itsATie.play()
       }
     })
 
@@ -233,13 +245,15 @@ var bValue = $('#bankerValue')
 var bMultiplier = $('#bankerMultiplier')
 
 document.getElementById('fight').addEventListener('click', function () {
-  // showDown.play()
   display.text(find3CardsWinner())
-  if (find3CardsWinner() === 'BANKER WINS') {
-    bankerWinner.play()
-  } else if (find3CardsWinner() === 'PLAYER WINS') {
-    playerWinner.play()
-  }
+// showDown.play()
+// if (find3CardsWinner() === 'BANKER WINS') {
+//   bankerWinner.play() + royalFlushSound.play()
+// } else if (find3CardsWinner() === 'PLAYER WINS') {
+//   playerWinner.play() + royalFlushSound.play()
+// } else if (find3CardsWinner() === 'ITS A TIE') {
+//
+// }
 })
 
 // ----- FIND HANDTYPE -----
@@ -313,37 +327,62 @@ function find3CardsWinner () { // AFTER DRAW CARDS WINNER CHECK
   if (royalFlush(player) && royalFlush(banker)) { // CHECK FOR ROYALFLUSH
     return draw + ', BOTH HAVE ROYALFLUSH'
   } else if (royalFlush(player)) {
+    playerWinner.play()
+    playerWinner.addEventListener('ended', function () {
+      royalFlushSound.play()
+    })
     return playerWins + ' WITH ROYALFLUSH'
   } else if (royalFlush(banker)) {
+    bankerWinner.play()
+    bankerWinner.addEventListener('ended', function () {
+      royalFlushSound.play()
+    })
     return bankerWins + ' WITH ROYALFLUSH'
   }
   if (trips(player) && trips(banker)) { // CHECK FOR TRIPLE
     return draw + ', BOTH HAVE TRIPLE'
   } else if (trips(player)) {
+    playerWinner.play()
+    playerWinner.addEventListener('ended', function () {
+      threeOfAKindSound.play()
+    })
     return playerWins + ' WITH TRIPLE'
   } else if (trips(banker)) {
+    bankerWinner.play()
+    bankerWinner.addEventListener('ended', function () {
+      threeOfAKindSound.play()
+    })
     return bankerWins + ' WITH TRIPLE'
   }
   if (picCube(player) && picCube(banker)) { // CHECK FOR 3 PICTURES
     return draw + ', BOTH HAVE 3 PICTURES'
   } else if (picCube(player)) {
+    playerWinner.play()
+    playerWinner.addEventListener('ended', function () {
+      threePicturesSound.play()
+    })
     return playerWins + ' WITH 3 PICTURES'
   } else if (picCube(banker)) {
+    bankerWinner.play()
+    bankerWinner.addEventListener('ended', function () {
+      threePicturesSound.play()
+    })
     return bankerWins + ' WITH 3 PICTURES'
   }
   if (score(banker) === score(player)) { // CHECK SCORES
     var three_suits0 = threeSuitsCheck()
     if (three_suits0 === (draw + ', BOTH HAVE 3 SUITS')) { return three_suits0; }
+    itsATie.play()
     return draw
   } else if (score(banker) > score(player)) {
     var three_suits1 = threeSuitsCheck()
     if (three_suits1 === (bankerWins + ' WITH 3 SUITS')) { return three_suits1; }
-    // bankerWins.play()
+    bankerWinner.play()
     return bankerWins
   } else if (score(banker) < score(player)) {
     var three_suits2 = threeSuitsCheck()
     if (three_suits2 === (playerWins + ' WITH 3 SUITS')) { return three_suits2; }
-    // playerWins.play()
+    playerWinner.play()
     return playerWins
   }
 }
@@ -383,18 +422,69 @@ function suitSuitCheck () {
 function natural (person) {
   if (score(person) > 8) {
     if (pair(person)) {
+      console.log("9pair");
+
+      bankerWinner.addEventListener('ended', function () {
+        naturalNinePair.play()
+      })
+      playerWinner.addEventListener('ended', function () {
+        naturalNinePair.play()
+      })
       return 'NATURAL 9 PAIR'
     } else if (suitSuit(person)) {
+      console.log("9suited");
+      bankerWinner.addEventListener('ended', function () {
+        naturalNineSuited.play()
+      })
+      playerWinner.addEventListener('ended', function () {
+        naturalNineSuited.play()
+      })
       return 'NATURAL 9 SUITED'
+    } else {
+      bankerWinner.addEventListener('ended', function () {
+        console.log('illegal play1')
+
+        naturalNine.play()
+      })
+      playerWinner.addEventListener('ended', function () {
+        console.log('illegal play2')
+
+        naturalNine.play()
+      })
+      console.log('just9')
+      return 'NATURAL 9'
     }
-    return 'NATURAL 9'
   } else if (score(person) > 7) {
     if (pair(person)) {
+      console.log('8suit')
+      bankerWinner.addEventListener('ended', function () {
+        naturalEightPair.play()
+      })
+      playerWinner.addEventListener('ended', function () {
+        naturalEightPair.play()
+      })
       return 'NATURAL 8 PAIR'
     } else if (suitSuit(person)) {
+      console.log('8pair')
+      bankerWinner.addEventListener('ended', function () {
+        naturalEightSuited.play()
+      })
+      playerWinner.addEventListener('ended', function () {
+        naturalEightSuited.play()
+      })
       return 'NATURAL 8 SUITED'
+    } else {
+      console.log("just8");
+      bankerWinner.addEventListener('ended', function () {
+        naturalEight.play()
+      })
+      playerWinner.addEventListener('ended', function () {
+        console.log("just8player");
+
+        naturalEight.play()
+      })
+      return 'NATURAL 8'
     }
-    return 'NATURAL 8'
   }
 }
 function naturalDecider (person) {
@@ -456,7 +546,7 @@ function clearCardInHTML (person) {
 
 // ----------BETTING ELEMENT----------
 // var bankerMoney = 500000
-// var playerMoney = 0
+// var playerMoney = 10000
 // var playerPlacedBet = 0
 // var currentBet = $('#currentBet').val()
 //
