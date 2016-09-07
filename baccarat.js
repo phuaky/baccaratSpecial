@@ -163,7 +163,7 @@ document.getElementById('deal').addEventListener('click', function () {
         itsATie.play()
       }
     })
-
+    // bankMoney()
     dealAlr++
   } else if (dealAlr === 1) {
     clearCardInHTML(player)
@@ -281,27 +281,27 @@ function checkValue (person) {
 function checkTwoCardsMultiplier (person) { // FOR 2 CARDS
   if (natural(person)) {
     if (pair(person)) {
-      return '2x'
+      return '2'
     } else if (suitSuit(person)) {
-      return '2x'
+      return '2'
     }
-    return '1x'
+    return '1'
   }
   if (pair(person)) {
-    return '2x'
+    return '2'
   } else if (suitSuit(person)) {
-    return '2x'
+    return '2'
   }
 }
 function checkThreeCardsMultiplier (person) { // FOR 3 CARDS
   if (royalFlush(person)) {
-    return '7x'
+    return '7'
   } else if (trips(person)) {
-    return '5x'
+    return '5'
   }  else if (picCube(person)) {
-    return '3x'
+    return '3'
   } else if (suitCube(person)) {
-    return '3x'
+    return '3'
   } else {
     return ' '
   }
@@ -422,7 +422,7 @@ function suitSuitCheck () {
 function natural (person) {
   if (score(person) > 8) {
     if (pair(person)) {
-      console.log("9pair");
+      console.log('9pair')
 
       bankerWinner.addEventListener('ended', function () {
         naturalNinePair.play()
@@ -432,7 +432,7 @@ function natural (person) {
       })
       return 'NATURAL 9 PAIR'
     } else if (suitSuit(person)) {
-      console.log("9suited");
+      console.log('9suited')
       bankerWinner.addEventListener('ended', function () {
         naturalNineSuited.play()
       })
@@ -474,12 +474,12 @@ function natural (person) {
       })
       return 'NATURAL 8 SUITED'
     } else {
-      console.log("just8");
+      console.log('just8')
       bankerWinner.addEventListener('ended', function () {
         naturalEight.play()
       })
       playerWinner.addEventListener('ended', function () {
-        console.log("just8player");
+        console.log('just8player')
 
         naturalEight.play()
       })
@@ -546,11 +546,37 @@ function clearCardInHTML (person) {
 
 // ----------BETTING ELEMENT----------
 // var bankerMoney = 500000
+// var bankerCredits = $('#bankerCredits')
 // var playerMoney = 10000
+// var playerCredits = $('#playerCredits')
 // var playerPlacedBet = 0
 // var currentBet = $('#currentBet').val()
 //
-// $('#bet').on('click', function() {
+function distributeMoney () {
+  bankerCredits.text(bankerMoney)
+  playerCredits.text(playerMoney)
+}
+//
+// distributeMoney()
+//
+// function bet (amount) {
+//   playerMoney - amount
+//   currentBet = amount
+// }
+//
+// bet(500)
+//
+// function payOut(){
+//   return currentBet * checkTwoCardsMultiplier()
+//
+//   // currentBet * checkThreeCardsMultiplier()
+// }
+//
+// bet(500)
+// payOut()
+// console.log(currentBet);
+// console.log();
+// $('#bet').on('click', function () {
 //   playerPlacedBet = $('#betAMT').val()
 //   console.log(playerPlacedBet)
 //   currentBet.textContent = playerPlacedBet

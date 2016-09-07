@@ -1,0 +1,9 @@
+1. sound still has bug
+2. add in formula to detect straights - 
+	find min of 3 cards
+	find max of 3 cards
+	find average if is the centre card.
+3. add betting element
+4. cover banker cards
+5. choose player or banker
+6. make mobile responsive
