@@ -11,12 +11,6 @@
   </head>
   <body>
     <div class = "container" id="cont">
-      <!-- <div class = "row" id="row">
-        <div class="col-md-3 words" id="banker">
-          <div>BANKER</div>
-          <span id="bank">$500,000</span>
-          <div><button type="submit" class="btn btn-primary pull-left" id="buyIn">BUY IN</button></div>
-        </div> -->
         <div class="row" id="topRow">
           <div>
             <img class="title2" src="imgs/baccaratTitle.png" />
@@ -32,12 +26,7 @@
 
 
       </div>
-                <!-- <div id="currentBet">$0.00</div> -->
-      <!-- <div class="col-md-3 words" id="player">
-        <div><button type="submit" class="btn btn-primary pull-left">CASH OUT</button></div>
-        <div id="credit">credit = 0</div>
-        <div id="cashOnHand">casho on hand = 0</div>
-      </div> -->
+
       </div>
     </div>
 
@@ -80,8 +69,9 @@
 
 
       <div class ="xiaorow">
-        <!-- <form class="form-inline pull-left">
+        <form class="form-inline pull-left">
           <div class="form-group">
+            <span id="betDisplay"> 0.00</span>
             <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
             <div class="input-group">
               <div class="input-group-addon">$</div>
@@ -89,8 +79,9 @@
               <div class="input-group-addon">.00</div>
             </div>
           </div>
-          <button type="button" class="btn btn-primary" id="bet">BET</button>
-        </form> -->
+          <button type="submit" class="btn btn-primary" id="bet">BET</button>
+        </form>
+
         <span class="btn" id="deal"><img id ="dealCards" src="imgs/dealCards.png" /></span>
         <button type="button" class="btn btn-warning glyphicon glyphicon-hand-up" id="bDraw"></button>
         <button type="button" class="btn btn-warning glyphicon glyphicon-hand-down" id="pDraw"></button>

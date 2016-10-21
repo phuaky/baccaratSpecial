@@ -545,20 +545,20 @@ function clearCardInHTML (person) {
 }
 
 // ----------BETTING ELEMENT----------
-// var bankerMoney = 500000
-// var bankerCredits = $('#bankerCredits')
-// var playerMoney = 10000
-// var playerCredits = $('#playerCredits')
-// var playerPlacedBet = 0
-// var currentBet = $('#currentBet').val()
-//
+var bankerMoney = 500000
+var bankerCredits = $('#bankerCredits')
+var playerMoney = 10000
+var playerCredits = $('#playerCredits')
+var playerPlacedBet = []
+// var currentBet = $('#betDisplay').val()
+// console.log(currentBet)
 function distributeMoney () {
   bankerCredits.text(bankerMoney)
   playerCredits.text(playerMoney)
 }
-//
-// distributeMoney()
-//
+
+distributeMoney()
+
 // function bet (amount) {
 //   playerMoney - amount
 //   currentBet = amount
@@ -568,16 +568,19 @@ function distributeMoney () {
 //
 // function payOut(){
 //   return currentBet * checkTwoCardsMultiplier()
-//
-//   // currentBet * checkThreeCardsMultiplier()
+
+// currentBet * checkThreeCardsMultiplier()
 // }
-//
+
 // bet(500)
 // payOut()
-// console.log(currentBet);
-// console.log();
-// $('#bet').on('click', function () {
-//   playerPlacedBet = $('#betAMT').val()
-//   console.log(playerPlacedBet)
-//   currentBet.textContent = playerPlacedBet
-// })
+// console.log(currentBet)
+// console.log()
+$('#bet').on('click', function () {
+  event.preventDefault()
+  playerPlacedBet = []
+  
+  playerPlacedBet.push($('#betAMT').val())
+  console.log(playerPlacedBet)
+  $('#betDisplay').text(playerPlacedBet);
+})
